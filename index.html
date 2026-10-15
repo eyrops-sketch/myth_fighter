@@ -1,1 +1,712 @@
-,
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitos Tácticos 8-Bits - Edición Definitiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0c0c14;
+            color: #00ffff;
+            font-family: 'Press Start 2P', monospace;
+            text-align: center;
+            margin: 0;
+            padding: 6px;
+        }
+        h1 {
+            font-size: 10px;
+            text-shadow: 2px 2px #ff00ff;
+            margin-bottom: 4px;
+        }
+        #game-container {
+            width: 400px;
+            margin: 0 auto;
+            border: 4px solid #00ffff;
+            background-color: #05050a;
+            padding: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            transition: background-color 0.1s;
+        }
+        .flash-red {
+            background-color: #550000 !important;
+            border-color: #ff0000 !important;
+        }
+        .flash-white {
+            background-color: #ffffff !important;
+        }
+        .stats-panel {
+            font-size: 5.5px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px dashed #ff00ff;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+        .main-layout {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .left-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        #window-frame {
+            width: 100%;
+            height: 110px;
+            border: 4px solid #ff00ff;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 4px;
+            transition: background-color 0.1s;
+        }
+        .boss-glow {
+            border-color: #ffff00 !important;
+            box-shadow: inset 0 0 15px #ff0000;
+        }
+        #monster-img {
+            max-width: 90px;
+            max-height: 100px;
+            image-rendering: pixelated;
+            transition: filter 0.3s ease, opacity 0.1s;
+        }
+        .right-side {
+            width: 130px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            justify-content: space-between;
+        }
+        .info-card {
+            background-color: #111a2e;
+            border: 2px solid #00ffff;
+            font-size: 5px;
+            padding: 6px 3px;
+            text-align: center;
+            color: #00ffff;
+        }
+        .hp-bar-container {
+            width: 100%;
+            background-color: #330033;
+            border: 2px solid #ff00ff;
+            height: 6px;
+            margin-bottom: 3px;
+        }
+        .hp-bar-fill {
+            background-color: #ff00ff;
+            height: 100%;
+            width: 100%;
+            transition: width 0.3s;
+        }
+        #timer-bar-container {
+            width: 100%;
+            background-color: #003333;
+            border: 2px solid #00ffff;
+            height: 5px;
+            margin-bottom: 6px;
+        }
+        #timer-bar-fill {
+            background-color: #00ffff;
+            height: 100%;
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+        .selector-row {
+            margin-bottom: 4px;
+            text-align: left;
+        }
+        .selector-label {
+            font-size: 5px;
+            color: #ff00ff;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .row-grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2px;
+        }
+        .tactical-btn {
+            background-color: #1a0033;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 4.5px;
+            padding: 5px 1px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .tactical-btn.selected {
+            background-color: #00ffff;
+            color: #0c0c14;
+            border-color: #ffff00;
+        }
+        .tactical-btn:disabled {
+            border-color: #444;
+            color: #444;
+            cursor: not-allowed;
+        }
+        #action-execute-btn {
+            width: 100%;
+            background-color: #ff00ff;
+            color: #fff;
+            border: 2px solid #ffff00;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 6px;
+            padding: 7px;
+            margin-top: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+        }
+        #action-execute-btn:hover:not(:disabled) {
+            background-color: #ff33ff;
+        }
+        #action-execute-btn:disabled {
+            background-color: #441144;
+            border-color: #444;
+            color: #777;
+            cursor: not-allowed;
+        }
+        #message {
+            font-size: 5px;
+            margin-top: 4px;
+            min-height: 22px;
+            line-height: 1.2;
+            color: #fff;
+        }
+        #upgrade-screen {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 10, 0.95);
+            z-index: 10;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .upgrade-btn {
+            background-color: #2a0044;
+            color: #ffff00;
+            border: 2px solid #ffff00;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 6px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .upgrade-btn:hover {
+            background-color: #ffff00;
+            color: #0c0c14;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MITOS TÁCTICOS 8-BIT</h1>
+    
+    <div id="game-container" style="position: relative;">
+        
+        <div id="upgrade-screen">
+            <h2 style="font-size: 8px; color: #ffff00; margin-bottom: 10px;">¡SUBES DE NIVEL! ELIGE UNA MEJORA</h2>
+            <button class="upgrade-btn" onclick="applyUpgrade(1)">⭐ +20% Daño Crítico en D10</button>
+            <button class="upgrade-btn" onclick="applyUpgrade(2)">❤️ +30 HP Máximos</button>
+            <button class="upgrade-btn" onclick="applyUpgrade(3)">⏱️ +3s extra de Cronómetro</button>
+        </div>
+
+        <div class="stats-panel">
+            <span id="hero-lvl-txt">NVL: 1</span>
+            <span id="hero-hp">HP: 100</span>
+            <span id="score-txt">PTS: 0</span>
+        </div>
+
+        <div class="main-layout">
+            <div class="left-side">
+                <div id="window-frame">
+                    <img id="monster-img" src="" alt="Criatura" style="display: none;">
+                    <div id="monster-placeholder" style="font-size: 28px;">🚪</div>
+                </div>
+            </div>
+
+            <div class="right-side">
+                <div class="info-card" id="info-target-lvl">OBJ NVL: ?</div>
+                <div class="info-card" id="info-estado-alterado">ESTADO: OK</div>
+                <div class="info-card" id="info-dado">DADO: [ 🎲 ]</div>
+            </div>
+        </div>
+
+        <div class="hp-bar-container">
+            <div id="enemy-hp-fill" class="hp-bar-fill"></div>
+        </div>
+        <div id="timer-bar-container">
+            <div id="timer-bar-fill" class="timer-bar-fill"></div>
+        </div>
+
+        <!-- Fila 1: Elementos -->
+        <div class="selector-row">
+            <span class="selector-label">1. ELEMENTO:</span>
+            <div class="row-grid-5">
+                <button class="tactical-btn" onclick="selectOpt('element', 'Fuego', this)">FUEGO</button>
+                <button class="tactical-btn" onclick="selectOpt('element', 'Hielo', this)">HIELO</button>
+                <button class="tactical-btn" onclick="selectOpt('element', 'Tierra', this)">TIERRA</button>
+                <button class="tactical-btn" onclick="selectOpt('element', 'Rayos', this)">RAYOS</button>
+                <button class="tactical-btn" onclick="selectOpt('element', 'Veneno', this)">VENENO</button>
+            </div>
+        </div>
+
+        <!-- Fila 2: Posturas -->
+        <div class="selector-row">
+            <span class="selector-label">2. POSTURA:</span>
+            <div class="row-grid-5">
+                <button class="tactical-btn" onclick="selectOpt('stance', 'Ataque', this)">ATAQUE</button>
+                <button class="tactical-btn" onclick="selectOpt('stance', 'Defensa', this)">DEFENSA</button>
+                <button class="tactical-btn" onclick="selectOpt('stance', 'Contra', this)">CONTRA</button>
+                <button class="tactical-btn" onclick="selectOpt('stance', 'Esquiva', this)">ESQUIVA</button>
+                <button class="tactical-btn" onclick="selectOpt('stance', 'Carga', this)">CARGA</button>
+            </div>
+        </div>
+
+        <!-- Fila 3: Enfoques / Recursos -->
+        <div class="selector-row">
+            <span class="selector-label">3. ENFOQUE / RECURSO:</span>
+            <div class="row-grid-5">
+                <button class="tactical-btn" onclick="selectOpt('focus', 'Físico', this)">FÍSICO</button>
+                <button class="tactical-btn" onclick="selectOpt('focus', 'Mágico', this)">MÁGICO</button>
+                <button class="tactical-btn" onclick="selectOpt('focus', 'Arma', this)">ARMA</button>
+                <button class="tactical-btn" onclick="selectOpt('focus', 'Armadura', this)">ARMADURA</button>
+                <button class="tactical-btn" onclick="selectOpt('focus', 'Hechizo', this)">HECHIZO</button>
+                <button class="tactical-btn" style="grid-column: span 2.5;" onclick="selectOpt('focus', 'Poción', this)">POCIÓN</button>
+                <button class="tactical-btn" style="grid-column: span 2.5;" onclick="selectOpt('focus', 'Talismán', this)">TALISMÁN</button>
+            </div>
+        </div>
+
+        <button id="action-execute-btn" onclick="executeTurnWithDice()" disabled>🎲 ¡LANZAR DADO Y EJECUTAR!</button>
+
+        <div id="message">Espera a que se abra la ventana...</div>
+    </div>
+      <script>
+        let TURN_TIME_LIMIT = 12; 
+        const DICE_MAX_SIDES = 10;      
+
+        const ROW_WEIGHTS = {
+            row1_element: 40,
+            row2_stance:  30,
+            row3_focus:   30
+        };
+
+        const elements = ["Fuego", "Hielo", "Tierra", "Rayos", "Veneno"];
+        const focusList = ["Físico", "Mágico", "Arma", "Armadura", "Hechizo", "Poción", "Talismán"];
+
+        const elementalWinsAgainst = {
+            "Fuego": ["Hielo", "Veneno"],
+            "Hielo": ["Tierra", "Rayos"],
+            "Tierra": ["Rayos", "Fuego"],
+            "Rayos": ["Veneno", "Hielo"],
+            "Veneno": ["Tierra", "Fuego"]
+        };
+
+        let heroLevel = 1;
+        let heroMaxHp = 100;
+        let heroHp = 100;
+        let score = 0;
+        let currentEnemy = null;
+        let combatActive = false;
+        let extraCritBonus = 0; 
+
+        let selection = { element: null, stance: null, focus: null };
+        let timeLeft = TURN_TIME_LIMIT;
+        let timerInterval = null;
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep(freq, type, duration) {
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = type; 
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function startGame() {
+            heroLevel = 1;
+            heroMaxHp = 100;
+            heroHp = 100;
+            score = 0;
+            extraCritBonus = 0;
+            updateUI();
+            nextEncounter();
+        }
+
+        function updateUI() {
+            document.getElementById("hero-lvl-txt").innerText = `NVL: ${heroLevel}`;
+            document.getElementById("hero-hp").innerText = `HP: ${heroHp}`;
+            document.getElementById("score-txt").innerText = `PTS: ${score}`;
+        }
+
+        function nextEncounter() {
+            combatActive = false;
+            document.getElementById("monster-placeholder").style.display = "block";
+            document.getElementById("monster-placeholder").innerText = "🚪";
+            document.getElementById("monster-img").style.display = "none";
+            document.getElementById("window-frame").classList.remove("boss-glow");
+            
+            document.getElementById("info-target-lvl").innerText = "OBJ NVL: ?";
+            document.getElementById("info-estado-alterado").innerText = "ESTADO: OK";
+            document.getElementById("info-dado").innerText = "DADO: [ 🎲 ]";
+
+            document.getElementById("message").innerText = "Preparando encuentro...";
+            document.getElementById("enemy-hp-fill").style.width = "100%";
+            document.getElementById("timer-bar-fill").style.width = "100%";
+            resetSelections();
+            setAllButtonsEnabled(false);
+
+            let waitTime = Math.random() * 1500 + 1000;
+            setTimeout(() => { openWindow(); }, waitTime);
+        }
+
+        function openWindow() {
+            playBeep(440, 'square', 0.1); 
+
+            let randomId = Math.floor(Math.random() * 20) + 1;
+            let formattedName = String(randomId).padStart(4, '0') + ".jpg";
+
+            let randomElem = elements[Math.floor(Math.random() * elements.length)];
+            let randomFocus = focusList[Math.floor(Math.random() * focusList.length)];
+            
+            let isBoss = (heroLevel % 5 === 0);
+            let targetLevel = isBoss ? heroLevel + 3 : Math.max(1, heroLevel + Math.floor(Math.random() * 7) - 3);
+            let enemyHpBase = isBoss ? 150 + (targetLevel * 10) : 70 + (targetLevel * 5);
+
+            currentEnemy = {
+                file: formattedName,
+                level: targetLevel,
+                hp: enemyHpBase,
+                maxHp: enemyHpBase,
+                element: randomElem,
+                weakFocus: randomFocus,
+                isBoss: isBoss,
+                status: null,
+                statusTurns: 0
+            };
+
+            let imgElement = document.getElementById("monster-img");
+            imgElement.src = `multimedia/${currentEnemy.file}`;
+            applyElementFilter(currentEnemy.element, imgElement);
+
+            document.getElementById("monster-placeholder").style.display = "none";
+            imgElement.style.display = "block";
+            
+            if (isBoss) {
+                document.getElementById("window-frame").classList.add("boss-glow");
+                document.getElementById("info-target-lvl").innerText = `¡JEFE NVL ${targetLevel}!`;
+                playBeep(220, 'sawtooth', 0.4); 
+            } else {
+                document.getElementById("info-target-lvl").innerText = `OBJ NVL: ${targetLevel}`;
+            }
+
+            document.getElementById("message").innerText = isBoss ? "⚠️ ¡CUIDADO, ES UN JEFE SUPREMO!" : "¡Ventana abierta!";
+            
+            combatActive = true;
+            setAllButtonsEnabled(true);
+            startTimer();
+        }
+
+        function applyElementFilter(element, imgElement) {
+            let baseFilter = "grayscale(100%) contrast(150%) ";
+            if (element === "Hielo") {
+                imgElement.style.filter = baseFilter + "sepia(100%) hue-rotate(140deg) saturate(400%)";
+            } else if (element === "Fuego") {
+                imgElement.style.filter = baseFilter + "sepia(100%) hue-rotate(-30deg) saturate(500%)";
+            } else if (element === "Tierra") {
+                imgElement.style.filter = baseFilter + "sepia(100%) hue-rotate(60deg) saturate(300%)";
+            } else if (element === "Rayos") {
+                imgElement.style.filter = baseFilter + "sepia(100%) hue-rotate(55deg) saturate(600%) brightness(120%)";
+            } else if (element === "Veneno") {
+                imgElement.style.filter = baseFilter + "sepia(100%) hue-rotate(90deg) saturate(400%) invert(20%)";
+            }
+        }
+
+        function triggerFlash(type) {
+            playBeep(type === 'red' ? 120 : 580, 'square', 0.15);
+            let container = document.getElementById("game-container");
+            let frame = document.getElementById("window-frame");
+            let img = document.getElementById("monster-img");
+            let flashClass = (type === 'red') ? 'flash-red' : 'flash-white';
+            
+            container.classList.add(flashClass);
+            frame.classList.add(flashClass);
+            img.style.opacity = "0.2";
+
+            setTimeout(() => {
+                container.classList.remove(flashClass);
+                frame.classList.remove(flashClass);
+                img.style.opacity = "1";
+            }, 150);
+        }
+
+        function selectOpt(category, value, btnElement) {
+            if (!combatActive) return;
+            playBeep(800, 'sine', 0.05);
+            selection[category] = value;
+
+            let parentGrid = btnElement.parentNode;
+            let buttons = parentGrid.getElementsByClassName("tactical-btn");
+            for (let b of buttons) { b.classList.remove("selected"); }
+            btnElement.classList.add("selected");
+
+            if (selection.element && selection.stance && selection.focus) {
+                document.getElementById("action-execute-btn").disabled = false;
+            }
+        }
+
+        function startTimer() {
+            timeLeft = TURN_TIME_LIMIT;
+            let timerFill = document.getElementById("timer-bar-fill");
+            timerFill.style.width = "100%";
+
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                let percent = (timeLeft / TURN_TIME_LIMIT) * 100;
+                timerFill.style.width = Math.max(0, percent) + "%";
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 100);
+        }
+
+        function handleTimeOut() {
+            if (!combatActive) return;
+            if (!selection.element) selection.element = "Fuego";
+            if (!selection.stance) selection.stance = "Defensa";
+            if (!selection.focus) selection.focus = "Físico";
+
+            document.getElementById("message").innerText = "⏰ Tiempo agotado. Auto-ejecutando...";
+            setTimeout(() => { executeTurnWithDice(); }, 800);
+        }
+
+        function executeTurnWithDice() {
+            if (!combatActive) return;
+            clearInterval(timerInterval);
+            combatActive = false;
+            setAllButtonsEnabled(false);
+
+            if (!selection.element) selection.element = "Fuego";
+            if (!selection.stance) selection.stance = "Defensa";
+            if (!selection.focus) selection.focus = "Físico";
+
+            triggerFlash('white');
+
+            let diceRoll = Math.floor(Math.random() * DICE_MAX_SIDES) + 1;
+            let baseCoefficient = 1.0;
+
+            if (diceRoll === 1) {
+                baseCoefficient = 0.4;
+            } else if (diceRoll >= 2 && diceRoll <= 5) {
+                baseCoefficient = 1.0;
+            } else if (diceRoll >= 6 && diceRoll <= 8) {
+                baseCoefficient = 1.3 + extraCritBonus; 
+            } else {
+                baseCoefficient = 1.9 + extraCritBonus; 
+            }
+
+            let levelDiff = heroLevel - currentEnemy.level;
+            let heroCoefficient = baseCoefficient;
+            let enemyCoefficient = 1.0;
+
+            if (levelDiff >= -2 && levelDiff <= 2) {
+                heroCoefficient = baseCoefficient;
+                enemyCoefficient = 1.0;
+            } else if (levelDiff <= -20) {
+                heroCoefficient = 0.2;
+                enemyCoefficient = 1.0;
+            } else if (levelDiff >= 20) {
+                heroCoefficient = baseCoefficient;
+                enemyCoefficient = 0.2;
+            } else {
+                heroCoefficient = Math.max(0.2, baseCoefficient + (levelDiff * 0.03));
+            }
+
+            document.getElementById("info-dado").innerText = `DADO: [ ${diceRoll}/${DICE_MAX_SIDES} ]`;
+
+            let baseDamagePool = 60;
+            let totalPower = 0;
+            let msg = `🎲 [Diff: ${levelDiff}] `;
+
+            let row1Val = 0;
+            if (elementalWinsAgainst[selection.element].includes(currentEnemy.element)) {
+                row1Val = 1.0;
+                msg += `¡Elemento dominante! `;
+                if (selection.element === "Fuego") { currentEnemy.status = "QUEMADO"; currentEnemy.statusTurns = 2; }
+                else if (selection.element === "Hielo") { currentEnemy.status = "CONGELADO"; currentEnemy.statusTurns = 2; }
+                else if (selection.element === "Veneno") { currentEnemy.status = "ENVENENADO"; currentEnemy.statusTurns = 3; }
+                else if (selection.element === "Rayos") { currentEnemy.status = "PARALIZADO"; currentEnemy.statusTurns = 2; }
+            } else if (selection.element === currentEnemy.element) {
+                row1Val = 0.3;
+                msg += `Choque elemental. `;
+            } else {
+                row1Val = 0.05;
+                msg += `Desventaja. `;
+            }
+            totalPower += baseDamagePool * (ROW_WEIGHTS.row1_element / 100) * row1Val;
+
+            if (currentEnemy.status) {
+                document.getElementById("info-estado-alterado").innerText = `ESTADO: ${currentEnemy.status}`;
+            }
+
+            if (currentEnemy.status === "QUEMADO" && currentEnemy.statusTurns > 0) {
+                currentEnemy.hp -= 10;
+                msg += "🔥 Quemadura (-10). ";
+                currentEnemy.statusTurns--;
+            } else if (currentEnemy.status === "ENVENENADO" && currentEnemy.statusTurns > 0) {
+                currentEnemy.hp -= 8;
+                msg += "🧪 Veneno (-8). ";
+                currentEnemy.statusTurns--;
+            }
+
+            let row2Val = (selection.stance === "Ataque") ? 1.0 : (selection.stance === "Carga" ? 1.3 : 0.6);
+            totalPower += baseDamagePool * (ROW_WEIGHTS.row2_stance / 100) * row2Val;
+
+            let row3Val = 0.5;
+            if (selection.focus === currentEnemy.weakFocus) {
+                row3Val = 1.2;
+                msg += `¡Punto débil! `;
+            } else {
+                if (selection.focus === "Poción") {
+                    heroHp = Math.min(heroMaxHp, heroHp + 25);
+                    msg += "¡Poción (+25 HP)! ";
+                } else if (selection.focus === "Talismán") {
+                    heroCoefficient += 0.3;
+                    msg += "¡Talismán extra! ";
+                }
+            }
+            totalPower += baseDamagePool * (ROW_WEIGHTS.row3_focus / 100) * row3Val;
+
+            let finalDamageToEnemy = Math.floor(totalPower * heroCoefficient);
+            currentEnemy.hp -= finalDamageToEnemy;
+            updateEnemyHpBar();
+
+            msg += `[${finalDamageToEnemy} DMG]. `;
+
+            if (currentEnemy.hp <= 0) {
+                score += currentEnemy.isBoss ? 1500 : 500;
+                heroLevel++;
+                updateUI();
+                playBeep(880, 'sine', 0.5); 
+
+                let bestScore = localStorage.getItem("mitos_best_score") || 0;
+                if (score > bestScore) {
+                    localStorage.setItem("mitos_best_score", score);
+                }
+
+                document.getElementById("upgrade-screen").style.display = "flex";
+                return;
+            }
+
+            let enemyDmg = Math.floor((Math.random() * 22) + 15) * enemyCoefficient;
+            if (currentEnemy.isBoss) enemyDmg *= 1.5; 
+            enemyDmg = Math.floor(enemyDmg);
+
+            if (currentEnemy.status === "CONGELADO") {
+                enemyDmg = Math.floor(enemyDmg / 2);
+                msg += "❄️ Congelado. ";
+                currentEnemy.statusTurns--;
+                if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
+            } else if (currentEnemy.status === "PARALIZADO") {
+                if (Math.random() > 0.5) {
+                    enemyDmg = 0;
+                    msg += "⚡ Paralizado. ";
+                }
+                currentEnemy.statusTurns--;
+                if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
+            }
+            
+            if (selection.stance === "Defensa" || selection.focus === "Armadura") {
+                enemyDmg = Math.floor(enemyDmg / 3);
+                msg += "¡Defensa! ";
+            } else if (selection.stance === "Esquiva" && Math.random() > 0.3) {
+                enemyDmg = 0;
+                msg += "¡Esquivado! ";
+            } else if (selection.stance === "Carga") {
+                enemyDmg += 12;
+                msg += "¡Carga arriesgada! ";
+            } else if (selection.stance === "Contra") {
+                enemyDmg = Math.floor(enemyDmg / 2);
+                currentEnemy.hp -= 15;
+                msg += "¡Contraataque! ";
+            }
+
+            if (enemyDmg > 0) { triggerFlash('red'); }
+
+            heroHp -= enemyDmg;
+            updateUI();
+
+            if (heroHp <= 0) { gameOver(); return; }
+
+            document.getElementById("message").innerText = msg + `Enemigo responde (-${enemyDmg} HP).`;
+            setTimeout(nextEncounter, 3500);
+        }
+
+        function applyUpgrade(choice) {
+            playBeep(950, 'square', 0.2);
+            if (choice === 1) {
+                extraCritBonus += 0.2; 
+            } else if (choice === 2) {
+                heroMaxHp += 30;
+                heroHp = heroMaxHp; 
+            } else if (choice === 3) {
+                TURN_TIME_LIMIT += 3; 
+            }
+            document.getElementById("upgrade-screen").style.display = "none";
+            updateUI();
+            nextEncounter();
+        }
+
+        function updateEnemyHpBar() {
+            let percentage = (currentEnemy.hp / currentEnemy.maxHp) * 100;
+            document.getElementById("enemy-hp-fill").style.width = Math.max(0, percentage) + "%";
+        }
+
+        function resetSelections() {
+            selection = { element: null, stance: null, focus: null };
+            let allBtns = document.getElementsByClassName("tactical-btn");
+            for (let b of allBtns) { b.classList.remove("selected"); }
+            document.getElementById("action-execute-btn").disabled = true;
+        }
+
+        function setAllButtonsEnabled(enabled) {
+            let allBtns = document.getElementsByClassName("tactical-btn");
+            for (let b of allBtns) { b.disabled = !enabled; }
+            if (!enabled) { document.getElementById("action-execute-btn").disabled = true; }
+        }
+
+        function gameOver() {
+            combatActive = false;
+            playBeep(150, 'sawtooth', 0.8);
+            let best = localStorage.getItem("mitos_best_score") || score;
+            document.getElementById("monster-img").style.display = "none";
+            document.getElementById("monster-placeholder").style.display = "block";
+            document.getElementById("monster-placeholder").innerText = "💀";
+            document.getElementById("message").innerText = `Has caído en Nvl ${heroLevel}. Pts: ${score} (Récord: ${best}).`;
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
+
