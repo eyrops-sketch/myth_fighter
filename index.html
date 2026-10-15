@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Edición Musical</title>
+    <title>Mitos Tácticos 8-Bits - Edición Avanzada</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -43,6 +43,7 @@
         .flash-red { background-color: #ff0000 !important; }
         .flash-white { background-color: #ffffff !important; }
         .flash-green { background-color: #00ff00 !important; }
+        .flash-blue { background-color: #0088ff !important; }
         
         .stats-panel {
             font-size: 8px;
@@ -92,15 +93,14 @@
             padding: 16px;
             box-sizing: border-box;
             text-align: left;
-            font-size: 8.5px;
-            line-height: 1.7;
+            font-size: 8px;
+            line-height: 1.6;
             color: #00ffff;
             box-shadow: 0 0 35px var(--theme-glow, rgba(255, 255, 0, 0.6));
-            transition: border-color 0.5s ease;
         }
         .modal-content h2 {
             color: #ffff00;
-            font-size: 11px;
+            font-size: 10px;
             text-align: center;
             margin-top: 0;
             border-bottom: 2px dashed #ffff00;
@@ -108,12 +108,12 @@
         }
         .modal-content h3 {
             color: #ffcc00;
-            font-size: 9px;
-            margin: 14px 0 6px 0;
+            font-size: 8.5px;
+            margin: 12px 0 4px 0;
             border-left: 3px solid #ffcc00;
             padding-left: 6px;
         }
-                .modal-btn-row {
+        .modal-btn-row {
             display: flex;
             gap: 6px;
             margin-top: 18px;
@@ -130,23 +130,28 @@
             text-align: center;
             font-weight: bold;
         }
-        .modal-action-btn:hover { filter: brightness(1.2); }
         .modal-secondary-btn {
             background-color: #111133;
             color: #ffff00;
             border: 3px solid #ffff00;
         }
-
-        #entorno-banner {
+                #entorno-banner {
             background-color: #001122;
             border: 3px solid var(--theme-color, #00ffff);
             color: var(--theme-color, #00ffff);
             font-size: 7.5px;
             padding: 7px;
             line-height: 1.4;
-            transition: border-color 0.5s ease, color 0.5s ease;
         }
-
+        #event-banner {
+            background-color: #220022;
+            border: 2px dashed #ff00ff;
+            color: #ff66ff;
+            font-size: 7px;
+            padding: 5px;
+            text-align: center;
+            display: none;
+        }
         #hint-banner {
             background-color: #111122;
             border: 2px dashed #ffff00;
@@ -183,7 +188,6 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            transition: border-color 0.5s ease;
         }
         #monster-img {
             width: 100%;
@@ -203,14 +207,12 @@
             height: 100%;
             box-sizing: border-box;
             justify-content: space-around;
-            transition: border-color 0.5s ease;
         }
         .bar-title {
             font-size: 7.5px;
             color: var(--theme-color, #00ffff);
             text-align: center;
             margin-bottom: 2px;
-            transition: color 0.5s ease;
         }
         .bar-row {
             display: flex;
@@ -243,7 +245,6 @@
             padding: 8px 4px;
             text-align: center;
             color: var(--theme-color, #00ffff);
-            transition: color 0.5s ease;
         }
 
         #timer-bar-container {
@@ -251,13 +252,12 @@
             background-color: #001122;
             border: 3px solid var(--theme-color, #00ffff);
             height: 9px;
-            transition: border-color 0.5s ease;
         }
         #timer-bar-fill {
             background-color: var(--theme-color, #00ffff);
             height: 100%;
             width: 100%;
-            transition: width 0.1s linear, background-color 0.5s ease;
+            transition: width 0.1s linear;
         }
 
         .selector-row {
@@ -273,6 +273,7 @@
         .row-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; }
         .row-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
         .row-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        .row-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
 
         .tactical-btn {
             background-color: #001122;
@@ -283,7 +284,6 @@
             padding: 10px 2px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.1s, border-color 0.5s ease, color 0.5s ease;
         }
         .tactical-btn.selected {
             background-color: var(--theme-color, #00ffff);
@@ -302,7 +302,6 @@
             cursor: pointer;
             margin-top: 2px;
             font-weight: bold;
-            transition: background-color 0.5s ease;
         }
         #action-execute-btn:hover { filter: brightness(1.2); }
         
@@ -316,54 +315,31 @@
             border: 3px solid var(--theme-color, #00ffff);
             padding: 7px;
             text-align: left;
-            transition: border-color 0.5s ease;
         }
     </style>
 </head>
 <body>
-
-    <!-- MODAL 1: MANUAL TÁCTICO & MECÁNICAS OCULTAS -->
+    <!-- MODAL 1: MANUAL TÁCTICO AMPLIADO -->
     <div id="guide-modal" class="modal-overlay">
         <div class="modal-content">
-            <h2>📖 MANUAL TÁCTICO & MECÁNICAS OCULTAS</h2>
+            <h2>📖 MANUAL TÁCTICO & MECÁNICAS AVANZADAS</h2>
             
             <h3>1. PROGRESIÓN Y BUCLE INFINITO</h3>
-            <p>Combates dinámicos contra fichas de monstruos cargadas de la carpeta <b>multimedia/</b> (0001.jpg en adelante).<br>
-            • <b>Victoria:</b> Sube tu racha, asciende al Rival Nv. +1 y reduce ligeramente tus recursos iniciales.<br>
-            • <b>Derrota:</b> Reinicia tu racha a 0, baja al rival Nv. -1 y mejora tus recursos iniciales.</p>
+            <p>Combates dinámicos contra monstruos de la carpeta multimedia/. Sube tu racha al ganar (Nivel +1) o reinicia a 0 al perder.</p>
 
-            <h3>2. GESTIÓN DE BARRAS Y COSTE DE FATIGA</h3>
-            <p>Tus 4 barras (HP, MAN, ENE, VEL) empiezan con bonificaciones según tu nivel actual. <b>Mecánica Oculta de Fatiga:</b> Cada clic en un botón de táctica drena tus recursos en tiempo real (HP -9, MAN -7, ENE -10, VEL -4). Si tu HP llega a 0, colapsas instantáneamente.</p>
+            <h3>2. ELEMENTOS & TIERRA VERDE</h3>
+            <p>🔥 Fuego > 🌍 Tierra (Verde) > 🧪 Veneno > ⚡ Rayos > ❄️ Hielo > 🔥 Fuego (+35 pts).</p>
 
-            <h3>3. PREVALENCIAS ELEMENTALES & SINERGIA DE CLIMA</h3>
-            <p>Cadena cerrada de 1 a 1:<br>
-            🔥 <b style="color:#ff6600">FUEGO</b> vence a <span style="color:#00ff66">🌍 Tierra</span> (+35 pts)<br>
-            🌍 <b style="color:#00ff66">TIERRA</b> vence a <span style="color:#cc44ff">🧪 Veneno</span> (+35 pts)<br>
-            🧪 <b style="color:#cc44ff">VENENO</b> vence a <span style="color:#ffffff">⚡ Rayos</span> (+35 pts)<br>
-            ⚡ <b style="color:#ffffff">RAYOS</b> vence a <span style="color:#00ffff">❄️ Hielo</span> (+35 pts)<br>
-            ❄️ <b style="color:#00ffff">HIELO</b> vence a <span style="color:#ff6600">🔥 Fuego</span> (+35 pts)</p>
-            <p>⚠️ <b>Duelo Espejo:</b> Mismo elemento que el monstruo penaliza por fatiga `Math.max(10, Fatiga / 2)`.<br>
-            ☀️ <b>¡NUEVO! Sinergia de Clima:</b> Coincidir tu elemento con el clima adverso ahora te premia con un bonus de <b>+35 pts</b> en lugar de penalizarte.</p>
-                       <h3>4. LEYENDA CROMÁTICA DE CLIMAS Y SEVERIDAD</h3>
-            <p>El clima tiñe la interfaz de su color distintivo y evalúa penalizaciones estrictas si vas desprotegido:<br>
-            • <b>CLIMA FUEGO (<span style="color:#ff6600">Naranja</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
-            • <b>CLIMA HIELO (<span style="color:#00ffff">Cian</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
-            • <b>CLIMA TEMPLADO (<span style="color:#00ff66">Verde</span>):</b> Sev 1. Desprotegido resta `-20 pts`.<br>
-            • <b>CLIMA TORMENTOSO (<span style="color:#ffffff">Blanco</span>):</b> Sev 3. Desprotegido resta `-60 pts`.<br>
-            • <b>CLIMA LLUVIA ÁCIDA (<span style="color:#cc44ff">Morado</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
-            <i>Soluciones:</i> Usar <b>Armadura</b> otorga `+30 pts`, replicar con el elemento opuesto otorga `+35 pts`, o coincidir el elemento da Sinergia `+35 pts`.</p>
+            <h3>3. NUEVAS MECÁNICAS DE PROFUNDIDAD</h3>
+            <p>• <b>Estados Alterados (Inestabilidad):</b> Al inicio de ronda puede surgir un estado (ej. <i>Campo de Resonancia</i> o <i>Niebla Tópica</i>) que altera las reglas de puntuación.<br>
+            • <b>Combos Elementales:</b> Si tu elemento encaja con el elemento previo guardado en memoria, ejecutas un combo especial (ej. <i>Magma</i> o <i>Supercongelación</i>) sumando <b>+25 pts extra</b>.<br>
+            • <b>Eventos Críticos:</b> Con 25% de probabilidad, surge una crisis súbita (Emboscada o Mutación) que exige reflejos defensivos para no perder.<br>
+            • <b>Pulso Oculto (Definitiva):</b> Cada 3 victorias acumulas una carga de energía definitiva. Úsala con su botón dedicado para limpiar penalizaciones y recuperar 30% de HP al instante.</p>
 
-            <h3>5. BONIFICACIONES DE TÁCTICAS (BOTONES)</h3>
-            <p>• <b>DEFENSA:</b> Se premia si HP &lt; 40 | <b>POCIÓN:</b> HP &lt; 35<br>
-            • <b>ATQ FÍSICO:</b> ENE rival &lt; 50 | <b>HECHIZO:</b> MAN rival &lt; 50<br>
-            • <b>ARMADURA:</b> Blindaje defensivo seguro | <b>GLP ÁGIL:</b> VEL rival &gt; tu VEL<br>
-            • <b>DRENAJE:</b> MAN rival ≥ 50<br>
-            ⚠️ <i>Sobrecarga:</i> Más de 3 tácticas penaliza `-10 pts` por cada extra.</p>
-
-            <h3>6. POSTURAS DE RIESGO & UMBRAL DE VICTORIA</h3>
-            <p>• <b>EQUILIBRADA:</b> Umbral base `38 + (Nivel * 2)` puntos.<br>
-            • <b>TEMERARIA:</b> Exige umbral +15 pts extra; si lo logras, <b>multiplica tus puntos x2</b>.<br>
-            • <b>CONSERVADORA:</b> Reduce tu puntuación final a la mitad (`/2`), ideal para salvar rachas.</p>
+            <h3>4. POSTURAS Y RIESGO</h3>
+            <p>• <b>Temeraria:</b> Exige umbral +15 pts; duplica tus puntos (x2) si aciertas.<br>
+            • <b>Equilibrada:</b> Umbral base estándar.<br>
+            • <b>Conservadora:</b> Reduce tu puntuación a la mitad (/2) para asegurar rachas.</p>
 
             <div class="modal-btn-row">
                 <button class="modal-action-btn" onclick="toggleGuide()">✖ CERRAR MANUAL</button>
@@ -371,7 +347,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: RESULTADO DE RONDA (VICTORIA / DERROTA CON DESGLOSE DETALLADO) -->
+    <!-- MODAL 2: RESULTADO DE RONDA -->
     <div id="result-modal" class="modal-overlay">
         <div class="modal-content" id="result-modal-content">
             <h2 id="result-title">RESUMEN DE RONDA</h2>
@@ -396,6 +372,7 @@
         </div>
 
         <div id="entorno-banner">CLIMA: DESPEJADO</div>
+        <div id="event-banner">⚡ EVENTO CRÍTICO ACTIVO</div>
         <div id="hint-banner">💡 Pista: Analiza las barras del rival antes de actuar.</div>
 
         <div class="bars-container">
@@ -441,7 +418,7 @@
 
         <!-- 2. Acciones -->
         <div class="selector-row">
-            <span class="selector-label">2. TÁCTICAS (Múltiples combinaciones):</span>
+            <span class="selector-label">2. TÁCTICAS Y HABILIDAD DEFINITIVA:</span>
             <div class="row-grid-4">
                 <button class="tactical-btn action-btn" onclick="toggleAction('Fisico', this)">ATQ FÍSICO</button>
                 <button class="tactical-btn action-btn" onclick="toggleAction('Hechizo', this)">HECHIZO</button>
@@ -454,21 +431,24 @@
             </div>
         </div>
 
-        <!-- 3. Riesgo -->
+        <!-- 3. Riesgo y Botón Definitivo -->
         <div class="selector-row">
-            <span class="selector-label">3. POSTURA DE RIESGO:</span>
-            <div class="row-grid-3">
-                <button class="tactical-btn risk-btn" style="color:#ff5555; border-color:#ff5555; font-size:6px;" onclick="selectRisk('Temeraria', this)">TEMERARIA<br>(x2 Pts)</button>
-                <button class="tactical-btn risk-btn selected" id="default-risk-btn" style="color:#ffff00; border-color:#ffff00; font-size:6px;" onclick="selectRisk('Equilibrada', this)">EQUILIBRADA<br>(Normal)</button>
-                <button class="tactical-btn risk-btn" style="color:#55ff55; border-color:#55ff55; font-size:6px;" onclick="selectRisk('Conservadora', this)">CONSERVADORA<br>(Salva vida)</button>
+            <span class="selector-label">3. POSTURA & PULSO OCULTO:</span>
+            <div class="row-grid-2">
+                <div class="row-grid-3">
+                    <button class="tactical-btn risk-btn" style="color:#ff5555; border-color:#ff5555; font-size:6px;" onclick="selectRisk('Temeraria', this)">TEMERARIA</button>
+                    <button class="tactical-btn risk-btn selected" id="default-risk-btn" style="color:#ffff00; border-color:#ffff00; font-size:6px;" onclick="selectRisk('Equilibrada', this)">EQUILIBRADA</button>
+                    <button class="tactical-btn risk-btn" style="color:#55ff55; border-color:#55ff55; font-size:6px;" onclick="selectRisk('Conservadora', this)">CONSERVADORA</button>
+                </div>
+                <button class="tactical-btn" id="ultimate-btn" style="background:#002244; color:#00ffff; border-color:#00ffff; font-size:6px;" onclick="triggerUltimate()">⚡ PULSO OCULTO (0/3)</button>
             </div>
         </div>
 
         <button id="action-execute-btn" onclick="evaluateTactics()">⚖️ CONFIRMAR JUGADA</button>
 
-        <div id="message">🚪 ¡Combate iniciado! Elige tus tácticas con inteligencia.</div>
+        <div id="message">🚪 ¡Combate avanzado iniciado! Elige tus tácticas.</div>
     </div>
-            <script>
+        <script>
         const CONFIG_TURN_TIME_LIMIT = 30; 
         
         const elements = ["Fuego", "Hielo", "Tierra", "Rayos", "Veneno"];
@@ -481,7 +461,7 @@
         };
 
         const entornos = [
-            { nombre: "DESPEJADO", desc: "Sin afinidad elemental adversa.", severidad: 0, elementoBase: null, tipoClima: "hielo" },
+            { nombre: "DESPEJADO", desc: "Sin afinidad elemental.", severidad: 0, elementoBase: null, tipoClima: "hielo" },
             { nombre: "CLIMA FUEGO", desc: "Calor abrasivo.", severidad: 2, elementoBase: "Fuego", tipoClima: "fuego" },
             { nombre: "CLIMA HIELO", desc: "Ventisca helada.", severidad: 2, elementoBase: "Hielo", tipoClima: "hielo" },
             { nombre: "CLIMA TEMPLADO", desc: "Ambiente templado.", severidad: 1, elementoBase: "Tierra", tipoClima: "tierra" },
@@ -489,10 +469,31 @@
             { nombre: "CLIMA LLUVIA ÁCIDA", desc: "Miasma corrosivo.", severidad: 2, elementoBase: "Veneno", tipoClima: "veneno" }
         ];
 
+        // Nuevas estructuras para mecánicas avanzadas
+        const estadosAlteradosPool = [
+            { nombre: "NEUTRAL", desc: "Sin alteraciones activas." },
+            { nombre: "INESTABILIDAD ARCANA", desc: "Las tácticas consumen el doble pero otorgan +10 pts extra." },
+            { name: "CAMPO DE RESONANCIA", desc: "Los duelos espejo otorgan bonificación en vez de penalizar." },
+            { nombre: "NIEBLA TÓPICA", desc: "Los umbrales de victoria aumentan temporalmente en +10 pts." }
+        ];
+
+        const combosValidos = {
+            "Fuego-Tierra": "Magma Explosivo",
+            "Tierra-Fuego": "Magma Explosivo",
+            "Hielo-Rayos": "Supercongelación",
+            "Rayos-Hielo": "Supercongelación",
+            "Veneno-Fuego": "Miasma Incandescente",
+            "Fuego-Veneno": "Miasma Incandescente"
+        };
+
         let streak = 0;
         let bestStreak = localStorage.getItem("mitos_best_streak") || 0;
         let enemyLevel = 1;
         let currentEntorno = entornos[0];
+        let currentEstado = estadosAlteradosPool[0];
+        let currentEvent = null; // Evento crítico de ronda
+        let lastElementUsed = null; // Para sistema de combos
+        let ultimateCharges = 0; // Cargas de Pulso Oculto (cada 3 rachas)
 
         let hero = { hp: 50, mana: 50, energy: 50, vel: 50 };
         let enemy = { element: "", hp: 100, mana: 100, energy: 100, vel: 50 };
@@ -506,15 +507,14 @@
         // SISTEMA DE AUDIO (001.mp3 a 146.mp3)
         const MUSIC_BASE_URL = "https://eyrops-sketch.github.io/polar-pulse/multimedia/";
         const TOTAL_TRACKS = 146;
-        let musicMode = 'off'; // 'sequential', 'random', 'off'
+        let musicMode = 'off';
         let currentTrackIndex = 1;
         let bgAudio = new Audio();
         bgAudio.volume = 0.4;
 
         bgAudio.addEventListener('ended', () => {
             if (musicMode === 'sequential') {
-                currentTrackIndex++;
-                if (currentTrackIndex > TOTAL_TRACKS) currentTrackIndex = 1;
+                currentTrackIndex = currentTrackIndex >= TOTAL_TRACKS ? 1 : currentTrackIndex + 1;
                 playCurrentTrack();
             } else if (musicMode === 'random') {
                 currentTrackIndex = Math.floor(Math.random() * TOTAL_TRACKS) + 1;
@@ -525,33 +525,25 @@
         function toggleMusicMode() {
             let btn = document.getElementById("music-mode-btn");
             if (musicMode === 'off') {
-                musicMode = 'sequential';
-                currentTrackIndex = Math.floor(Math.random() * TOTAL_TRACKS) + 1;
-                btn.innerText = "🎵 MUS: SEQ";
-                playCurrentTrack();
+                musicMode = 'sequential'; currentTrackIndex = Math.floor(Math.random() * TOTAL_TRACKS) + 1;
+                btn.innerText = "🎵 MUS: SEQ"; playCurrentTrack();
             } else if (musicMode === 'sequential') {
-                musicMode = 'random';
-                btn.innerText = "🎵 MUS: RND";
-                playCurrentTrack();
+                musicMode = 'random'; btn.innerText = "🎵 MUS: RND"; playCurrentTrack();
             } else {
-                musicMode = 'off';
-                btn.innerText = "🎵 MUS: OFF";
-                bgAudio.pause();
+                musicMode = 'off'; btn.innerText = "🎵 MUS: OFF"; bgAudio.pause();
             }
         }
 
         function playCurrentTrack() {
             if (musicMode === 'off') return;
-            let formattedName = String(currentTrackIndex).padStart(3, '0') + ".mp3";
-            bgAudio.src = MUSIC_BASE_URL + formattedName;
-            bgAudio.play().catch(e => console.log("Audio play blocked/skipped:", e));
+            bgAudio.src = MUSIC_BASE_URL + String(currentTrackIndex).padStart(3, '0') + ".mp3";
+            bgAudio.play().catch(e => console.log("Audio skipped:", e));
         }
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep(freq, type, duration) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
+            let osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
             osc.type = type; osc.frequency.value = freq;
             gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
@@ -560,16 +552,19 @@
         }
 
         function getRandomMultimediaImage() {
-            let totalAvailableImages = 6; 
-            let randomNum = Math.floor(Math.random() * totalAvailableImages) + 1;
-            let formattedName = String(randomNum).padStart(4, '0') + ".jpg";
-            return `multimedia/${formattedName}`;
+            return `multimedia/${String(Math.floor(Math.random() * 6) + 1).padStart(4, '0')}.jpg`;
         }
 
         function toggleGuide() {
             playBeep(600, 'sine', 0.05);
             let modal = document.getElementById("guide-modal");
-            modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
+            if (modal.style.display === "flex") {
+                modal.style.display = "none";
+                if (combatActive && timerInterval === null) startTimer();
+            } else {
+                modal.style.display = "flex";
+                clearInterval(timerInterval); timerInterval = null;
+            }
         }
 
         function openGuideFromModal() {
@@ -578,31 +573,57 @@
         }
 
         function applyTheme(tipoClima) {
-            let colorHex = "#00ffff"; 
-            let glowRgba = "rgba(0, 255, 255, 0.5)";
-
+            let colorHex = "#00ffff", glowRgba = "rgba(0, 255, 255, 0.5)";
             if (tipoClima === "fuego") { colorHex = "#ff6600"; glowRgba = "rgba(255, 102, 0, 0.5)"; }
             else if (tipoClima === "hielo") { colorHex = "#00ffff"; glowRgba = "rgba(0, 255, 255, 0.5)"; }
             else if (tipoClima === "tierra") { colorHex = "#00ff66"; glowRgba = "rgba(0, 255, 102, 0.5)"; }
             else if (tipoClima === "rayos") { colorHex = "#ffffff"; glowRgba = "rgba(255, 255, 255, 0.5)"; }
             else if (tipoClima === "veneno") { colorHex = "#cc44ff"; glowRgba = "rgba(204, 68, 255, 0.5)"; }
-
             document.documentElement.style.setProperty('--theme-color', colorHex);
             document.documentElement.style.setProperty('--theme-glow', glowRgba);
         }
 
         function startGame() {
-            streak = 0; enemyLevel = 1;
+            streak = 0; enemyLevel = 1; ultimateCharges = 0; lastElementUsed = null;
+            updateUltimateButton();
             document.getElementById("best-streak-txt").innerText = `RÉCORD: ${bestStreak}`;
-            document.getElementById("message").innerHTML = "¡Combate infinito listo!";
+            document.getElementById("message").innerHTML = "¡Combate avanzado iniciado!";
             updateUI(); nextEncounter();
         }
 
-        function updateUI() {
+        function updateUltimateButton() {
+            let btn = document.getElementById("ultimate-btn");
+            if (ultimateCharges >= 3) {
+                btn.innerText = "⚡ ¡PULSO LISTO!";
+                btn.style.background = "#00ffcc";
+                btn.style.color = "#000";
+            } else {
+                btn.innerText = `⚡ PULSO (${ultimateCharges}/3)`;
+                btn.style.background = "#002244";
+                btn.style.color = "#00ffff";
+            }
+        }
+
+        function triggerUltimate() {
+            if (!combatActive) return;
+            if (ultimateCharges < 3) {
+                playBeep(200, 'square', 0.1);
+                document.getElementById("message").innerHTML = "⚠️ Necesitas 3 cargas de racha para desatar el Pulso Oculto.";
+                return;
+            }
+            playBeep(1000, 'sine', 0.4);
+            ultimateCharges = 0;
+            updateUltimateButton();
+            hero.hp = Math.min(100, hero.hp + 30);
+            updateUI();
+            triggerFlash('blue');
+            document.getElementById("message").innerHTML = "⚡ ¡Pulso Oculto liberado! Penalizaciones anuladas y +30% HP recuperado.";
+        }
+                function updateUI() {
             document.getElementById("hero-lvl-txt").innerText = `RACHA: ${streak}`;
             document.getElementById("enemy-lvl-display").innerText = `RIVAL NV.${enemyLevel}`;
             document.getElementById("best-streak-txt").innerText = `RÉCORD: ${bestStreak}`;
-            document.getElementById("entorno-banner").innerText = `CLIMA: ${currentEntorno.nombre} - ${currentEntorno.desc}`;
+            document.getElementById("entorno-banner").innerText = `CLIMA: ${currentEntorno.nombre} [Estado: ${currentEstado.nombre}]`;
             document.getElementById("enemy-title-lvl").innerText = `ANÁLISIS RIVAL (NV.${enemyLevel})`;
             
             document.getElementById("hero-hp-fill").style.width = `${Math.max(0, hero.hp)}%`;
@@ -618,13 +639,15 @@
 
         function generateHint() {
             let hint = "💡 Pista: ";
+            if (currentEvent) {
+                hint += `<b>¡ALERTA EVENTO!</b> ${currentEvent.desc} `;
+            }
             if (currentEntorno.severidad > 0) {
-                hint += `Clima adverso (${currentEntorno.nombre}). Usa **Armadura**, o el elemento igual al clima para Sinergia.`;
+                hint += `Clima ${currentEntorno.nombre}. Usa Armadura o Sinergia.`;
             } else {
                 let elemWin = Object.keys(elementalWinsAgainst).find(k => elementalWinsAgainst[k].includes(enemy.element));
-                hint += `El rival usa ${enemy.element.toUpperCase()}. Tu mejor elemento ofensivo es **${elemWin || 'Fuego'}**.`;
+                hint += `El rival usa ${enemy.element.toUpperCase()}. Tu mejor ofensiva es **${elemWin || 'Fuego'}**.`;
             }
-            if (hero.hp < 30) hint += " ¡Cuidado, HP bajo! Usa Defensa o Poción.";
             document.getElementById("hint-banner").innerHTML = hint;
         }
 
@@ -632,28 +655,46 @@
             combatActive = false;
             document.getElementById("monster-img").style.display = "none";
             resetSelections();
-            setTimeout(() => { openWindow(); }, 800);
+            setTimeout(openWindow, 800);
         }
 
         function openWindow() {
             playBeep(440, 'square', 0.1); 
-
             let randomImagePath = getRandomMultimediaImage();
 
             currentEntorno = entornos[Math.floor(Math.random() * entornos.length)];
+            currentEstado = estadosAlteradosPool[Math.floor(Math.random() * estadosAlteradosPool.length)];
             applyTheme(currentEntorno.tipoClima);
 
-            let factorBonificacion = Math.max(12, 60 - (enemyLevel * 3));
-            hero.hp = Math.min(100, Math.floor(Math.random() * 25) + factorBonificacion);
-            hero.mana = Math.min(100, Math.floor(Math.random() * 25) + factorBonificacion);
-            hero.energy = Math.min(100, Math.floor(Math.random() * 25) + factorBonificacion);
-            hero.vel = Math.min(100, Math.floor(Math.random() * 25) + factorBonificacion);
+            // 25% de probabilidad de Evento Crítico
+            if (Math.random() < 0.25) {
+                let eventPool = [
+                    { tipo: "emboscada", desc: "¡Emboscada Nocturna! Debes usar Defensa u 0 pts." },
+                    { tipo: "mutacion", desc: "¡Mutación Abrupta! El rival duplica su velocidad este turno." }
+                ];
+                currentEvent = eventPool[Math.floor(Math.random() * eventPool.length)];
+                let evBanner = document.getElementById("event-banner");
+                evBanner.innerText = `⚡ ${currentEvent.desc}`;
+                evBanner.style.display = "block";
+            } else {
+                currentEvent = null;
+                document.getElementById("event-banner").style.display = "none";
+            }
+
+            hero.hp = Math.floor(Math.random() * 86) + 15;
+            hero.mana = Math.floor(Math.random() * 86) + 15;
+            hero.energy = Math.floor(Math.random() * 86) + 15;
+            hero.vel = Math.floor(Math.random() * 86) + 15;
 
             enemy.element = elements[Math.floor(Math.random() * elements.length)];
-            enemy.hp = Math.min(100, 30 + (enemyLevel * 12));
-            enemy.mana = Math.min(100, 25 + (enemyLevel * 12));
-            enemy.energy = Math.min(100, 25 + (enemyLevel * 12));
-            enemy.vel = Math.min(100, 25 + (enemyLevel * 10));
+            enemy.hp = Math.floor(Math.random() * 86) + 15;
+            enemy.mana = Math.floor(Math.random() * 86) + 15;
+            enemy.energy = Math.floor(Math.random() * 86) + 15;
+            enemy.vel = Math.floor(Math.random() * 86) + 15;
+
+            if (currentEvent && currentEvent.tipo === "mutacion") {
+                enemy.vel = 100;
+            }
 
             updateUI();
             generateHint();
@@ -664,8 +705,7 @@
             imgElement.style.display = "block";
 
             document.getElementById("info-element").innerText = `ELEM: ${enemy.element.toUpperCase()}`;
-            document.getElementById("message").innerHTML = `⚠️ Enfrentando a Rival Nv.${enemyLevel} (${enemy.element.toUpperCase()}). ¡A por la racha!`;
-            
+            document.getElementById("message").innerHTML = `⚠️ Enfrentando a Rival Nv.${enemyLevel} (${enemy.element.toUpperCase()}). [Estado: ${currentEstado.nombre}]`;
             combatActive = true;
             startTimer();
         }
@@ -676,10 +716,8 @@
                 img.style.filter = bf + "sepia(100%) hue-rotate(140deg) saturate(400%)";
             } else if (element === "Fuego") {
                 img.style.filter = bf + "sepia(100%) hue-rotate(-30deg) saturate(500%)";
-           
             } else if (element === "Tierra") {
-                img.style.filter = bf + "sepia(100%) hue-rotate(90deg) saturate(300%)";
-
+                img.style.filter = bf + "sepia(100%) hue-rotate(90deg) saturate(300%)"; // Tono Verde Correcto
             } else if (element === "Rayos") {
                 img.style.filter = bf + "sepia(100%) hue-rotate(55deg) saturate(600%) brightness(120%)";
             } else if (element === "Veneno") {
@@ -687,13 +725,12 @@
             } else {
                 img.style.filter = bf;
             }
-        }
-
-        function triggerFlash(type) {
-            playBeep(type === 'green' ? 800 : (type === 'red' ? 120 : 580), type === 'green' ? 'sine' : 'square', 0.2);
+            }
+                    function triggerFlash(type) {
+            playBeep(type === 'green' ? 800 : (type === 'red' ? 120 : (type === 'blue' ? 1000 : 580)), type === 'green' || type === 'blue' ? 'sine' : 'square', 0.2);
             let container = document.getElementById("game-container");
             let frame = document.getElementById("window-frame");
-            let flashClass = (type === 'red') ? 'flash-red' : (type === 'green' ? 'flash-green' : 'flash-white');
+            let flashClass = type === 'red' ? 'flash-red' : (type === 'green' ? 'flash-green' : (type === 'blue' ? 'flash-blue' : 'flash-white'));
             container.classList.add(flashClass); frame.classList.add(flashClass);
             setTimeout(() => { container.classList.remove(flashClass); frame.classList.remove(flashClass); }, 250);
         }
@@ -711,10 +748,11 @@
             if (!combatActive) return;
             playBeep(900, 'sine', 0.05);
             
-            hero.hp -= 9; 
-            hero.mana -= 7; 
-            hero.energy -= 10;
-            hero.vel -= 4; 
+            let costeMultiplicador = (currentEstado.nombre === "INESTABILIDAD ARCANA") ? 2 : 1;
+            hero.hp -= (9 * costeMultiplicador); 
+            hero.mana -= (7 * costeMultiplicador); 
+            hero.energy -= (10 * costeMultiplicador);
+            hero.vel -= (4 * costeMultiplicador); 
             updateUI();
 
             if (hero.hp <= 0) {
@@ -742,19 +780,25 @@
         }
 
         function startTimer() {
+            clearInterval(timerInterval);
             timeLeft = CONFIG_TURN_TIME_LIMIT;
             let timerFill = document.getElementById("timer-bar-fill");
             timerFill.style.width = "100%";
-            clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 timeLeft -= 0.1;
                 timerFill.style.width = Math.max(0, (timeLeft / CONFIG_TURN_TIME_LIMIT) * 100) + "%";
-                if (timeLeft <= 0) { clearInterval(timerInterval); evaluateTactics(); }
+                if (timeLeft <= 0) { 
+                    clearInterval(timerInterval); 
+                    timerInterval = null;
+                    evaluateTactics(); 
+                }
             }, 100);
         }
-                function evaluateTactics() {
+
+        function evaluateTactics() {
             if (!combatActive) return;
             clearInterval(timerInterval);
+            timerInterval = null;
             combatActive = false;
 
             if (!selection.risk) selection.risk = 'Equilibrada';
@@ -762,22 +806,20 @@
             let report = "";
             let tacticScore = 0; 
             let usaArmadura = selection.actions.includes("Armadura");
+            let bonusInestabilidad = (currentEstado.nombre === "INESTABILIDAD ARCANA") ? 10 : 0;
 
             if (hero.hp <= 0) {
                 tacticScore = -100;
-                report += "💀 <span style='color:#ff5555'>Agotamiento: Tus barras llegaron a cero por exceso de clics.</span><br>";
+                report += "💀 <span style='color:#ff5555'>Agotamiento: Tus barras llegaron a cero.</span><br>";
             } else {
-                // 1. EVALUAR CLIMA (Ahora no bloquea el duelo contra el monstruo)
+                // 1. EVALUAR CLIMA Y ESTADO
                 if (currentEntorno.severidad > 0) {
                     if (selection.element === currentEntorno.elementoBase) {
-                        tacticScore += 35;
-                        report += `☀️ <span style="color:#00ff00">¡Sinergia perfecta con el ${currentEntorno.nombre} (+35 pts)!</span><br>`;
+                        tacticScore += (35 + bonusInestabilidad);
+                        report += `☀️ <span style="color:#00ff00">¡Sinergia perfecta con el clima (+${35 + bonusInestabilidad} pts)!</span><br>`;
                     } else if (usaArmadura) {
-                        tacticScore += 30;
-                        report += `🛡️ <span style="color:#00ff00">Armadura neutralizó el ${currentEntorno.nombre} (+30 pts).</span><br>`;
-                    } else if (selection.element && elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(currentEntorno.elementoBase)) {
-                        tacticScore += 35;
-                        report += `⚡ <span style="color:#00ff00">Réplica elemental perfecta al ${currentEntorno.nombre} (+35 pts).</span><br>`;
+                        tacticScore += (30 + bonusInestabilidad);
+                        report += `🛡️ <span style="color:#00ff00">Armadura neutralizó el clima (+${30 + bonusInestabilidad} pts).</span><br>`;
                     } else {
                         let penalClima = currentEntorno.severidad * 25;
                         tacticScore -= penalClima;
@@ -785,36 +827,55 @@
                     }
                 }
 
-                // 2. EVALUAR DUELO ELEMENTAL CONTRA EL RIVAL (Siempre se calcula)
+                // 2. EVALUAR DUELO ELEMENTAL Y COMBOS
                 if (selection.element) {
                     if (elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(enemy.element)) {
-                        tacticScore += 35; 
-                        report += `🔥 Tu elemento (${selection.element}) venció al del rival (${enemy.element}) [+35 pts].<br>`;
+                        tacticScore += (35 + bonusInestabilidad); 
+                        report += `🔥 Tu elemento venció al rival (+${35 + bonusInestabilidad} pts).<br>`;
                     } else if (selection.element === enemy.element) {
-                        let fatigaHeroe = (50 - hero.hp) + (50 - hero.energy);
-                        let penalizacionFatiga = Math.max(10, Math.floor(fatigaHeroe / 2));
-                        tacticScore -= penalizacionFatiga;
-                        report += `⚖️ Duelo Espejo: Mismo elemento (${selection.element}) que el rival. Penalizado por fatiga (-${penalizacionFatiga} pts).<br>`;
+                        if (currentEstado.nombre === "CAMPO DE RESONANCIA") {
+                            tacticScore += 25;
+                            report += `✨ Campo de Resonancia: Duelo espejo beneficioso [+25 pts].<br>`;
+                        } else {
+                            let fatiga = (50 - hero.hp) + (50 - hero.energy);
+                            let pen = Math.max(10, Math.floor(fatiga / 2));
+                            tacticScore -= pen;
+                            report += `⚖️ Duelo Espejo penalizado [-${pen} pts].<br>`;
+                        }
                     } else { 
-                        report += `❌ Tu elemento (${selection.element}) fue débil frente a (${enemy.element}) [0 pts].<br>`; 
+                        report += `❌ Elemento débil frente al rival [0 pts].<br>`; 
+                    }
+
+                    // Sistema de Combos por Parejas
+                    if (lastElementUsed) {
+                        let comboKey = `${lastElementUsed}-${selection.element}`;
+                        if (combosValidos[comboKey]) {
+                            tacticScore += 25;
+                            report += `🔥✨ <b>¡COMBO ${combosValidos[comboKey]} ACTIVADO!</b> [+25 pts].<br>`;
+                        }
+                    }
+                    lastElementUsed = selection.element;
+                }
+
+                // 3. EVENTO CRÍTICO
+                if (currentEvent && currentEvent.tipo === "emboscada") {
+                    if (!selection.actions.includes("Defensa")) {
+                        tacticScore -= 35;
+                        report += `⚡ Emboscada fallida: No usaste Defensa [-35 pts].<br>`;
+                    } else {
+                        tacticScore += 25;
+                        report += `⚡ Emboscada repelida con éxito [+25 pts].<br>`;
                     }
                 }
 
-                // 3. EVALUAR TÁCTICAS DE APOYO
+                // 4. ACCIONES DE APOYO
                 let actionCount = selection.actions.length;
                 if (actionCount === 0) {
-                    report += "❌ No seleccionaste ninguna táctica de apoyo.<br>";
+                    report += "❌ Sin tácticas de apoyo seleccionadas.<br>";
                 } else {
-                    let goodActions = 0;
                     selection.actions.forEach(act => {
-                        if (act === "Defensa" && hero.hp < 40) { goodActions++; report += "✔️ Defensa oportuna (HP < 40) [+20 pts].<br>"; }
-                        else if (act === "Pocion" && hero.hp < 35) { goodActions++; report += "✔️ Poción de emergencia (HP < 35) [+20 pts].<br>"; }
-                        else if (act === "Fisico" && enemy.energy < 50) { goodActions++; report += "✔️ Ataque Físico preciso (ENE rival < 50) [+20 pts].<br>"; }
-                        else if (act === "Hechizo" && enemy.mana < 50) { goodActions++; report += "✔️ Hechizo preciso (MAN rival < 50) [+20 pts].<br>"; }
-                        else if (act === "Armadura") { goodActions++; report += "✔️ Armadura desplegada [+20 pts].<br>"; }
-                        else if (act === "Agil" && enemy.vel > hero.vel) { goodActions++; report += "✔️ Reflejos ágiles (Rival VEL superior) [+20 pts].<br>"; }
-                        else if (act === "Drenaje" && enemy.mana >= 50) { goodActions++; report += "✔️ Drenaje arcano exitoso (MAN rival ≥ 50) [+20 pts].<br>"; }
-                        else { tacticScore -= 5; report += `⚠️ Acción (${act}) desacertada al contexto [-5 pts].<br>`; }
+                        tacticScore += (20 + bonusInestabilidad);
+                        report += `✔️ Táctica (${act}) aplicada [+${20 + bonusInestabilidad} pts].<br>`;
                     });
                     if (actionCount > 3) {
                         let exceso = (actionCount - 3) * 10;
@@ -825,30 +886,21 @@
             }
 
             let umbralVictoria = 38 + (enemyLevel * 2);
-            let superaSituacion = false;
+            if (currentEstado.nombre === "NIEBLA TÓPICA") umbralVictoria += 10;
             
+            let superaSituacion = false;
             if (hero.hp > 0) {
                 if (selection.risk === "Temeraria") {
                     if (tacticScore >= (umbralVictoria + 15)) { 
-                        superaSituacion = true; 
-                        tacticScore *= 2; 
-                        report += `💥 <b>Postura Temeraria:</b> ¡Superaste el umbral exigido! Puntuación duplicada (x2).`; 
-                    } else { 
-                        superaSituacion = false; 
-                        report += `💥 <b>Postura Temeraria:</b> No alcanzaste el sobre-umbral requerido (${umbralVictoria + 15}).`; 
-                    }
+                        superaSituacion = true; tacticScore *= 2; 
+                        report += `💥 Temeraria lograda: Puntuación x2.`; 
+                    } else { superaSituacion = false; report += `💥 Temeraria fallida.`; }
                 } else if (selection.risk === "Conservadora") {
-                    superaSituacion = true; 
-                    tacticScore = Math.floor(tacticScore / 2);
-                    report += `🛡️ <b>Postura Conservadora:</b> Ronda salvada de forma segura (puntuación reducida a la mitad).`;
+                    superaSituacion = true; tacticScore = Math.floor(tacticScore / 2);
+                    report += `🛡️ Conservadora: Ronda salvada (/2).`;
                 } else {
-                    if (tacticScore >= umbralVictoria) {
-                        superaSituacion = true;
-                        report += `⚖️ <b>Postura Equilibrada:</b> Puntuación obtenida (${tacticScore}) superó el umbral requerido (${umbralVictoria}).`;
-                    } else {
-                        superaSituacion = false;
-                        report += `⚖️ <b>Postura Equilibrada:</b> Puntuación obtenida (${tacticScore}) insuficiente para el umbral (${umbralVictoria}).`;
-                    }
+                    superaSituacion = tacticScore >= umbralVictoria;
+                    report += superaSituacion ? `⚖️ Umbral superado (${tacticScore}/${umbralVictoria}).` : `⚖️ Insuficiente (${tacticScore}/${umbralVictoria}).`;
                 }
             }
 
@@ -857,36 +909,20 @@
 
             if (superaSituacion) {
                 triggerFlash('green'); 
-                streak++; 
-                enemyLevel++; 
-                
-                if (streak > bestStreak) {
-                    bestStreak = streak;
-                    localStorage.setItem("mitos_best_streak", bestStreak);
-                }
-                
+                streak++; enemyLevel++; ultimateCharges = Math.min(3, ultimateCharges + 1);
+                updateUltimateButton();
+                if (streak > bestStreak) { bestStreak = streak; localStorage.setItem("mitos_best_streak", bestStreak); }
                 setTimeout(() => { showResultModal(true); }, 800);
             } else {
                 triggerFlash('red'); hero.hp = 0; updateUI();
-                streak = 0; 
-                if (enemyLevel > 1) enemyLevel--;
-                
+                streak = 0; if (enemyLevel > 1) enemyLevel--;
                 setTimeout(() => { showResultModal(false); }, 800);
             }
         }
 
         function showResultModal(won) {
-            let modalTitle = document.getElementById("result-title");
-            let modalBody = document.getElementById("result-body");
-            
-            if (won) {
-                modalTitle.innerText = `🏆 ¡RONDA SUPERADA (RACHA: ${streak})!`;
-                modalBody.innerHTML = `<b>¿Por qué has ganado?</b><br>${lastEvaluationDetails.report}<br><br><b>Ascendiendo al Rival Nv.${enemyLevel}</b><br>Estadísticas actuales:<br>• HP: ${Math.max(0, Math.floor(hero.hp))}% | MAN: ${Math.max(0, Math.floor(hero.mana))}%<br>• ENE: ${Math.max(0, Math.floor(hero.energy))}% | VEL: ${Math.max(0, Math.floor(hero.vel))}%`;
-            } else {
-                modalTitle.innerText = `💀 DERROTADO (NV. RIVAL: ${enemyLevel})`;
-                modalBody.innerHTML = `<b>¿Por qué has perdido?</b><br>${lastEvaluationDetails.report}<br><br>Tu racha se ha reiniciado a 0.<br><b>El rival baja al Nv.${enemyLevel}</b><br>Estadísticas de recuperación:<br>• HP: ${Math.max(0, Math.floor(hero.hp))}% | MAN: ${Math.max(0, Math.floor(hero.mana))}%<br>• ENE: ${Math.max(0, Math.floor(hero.energy))}% | VEL: ${Math.max(0, Math.floor(hero.vel))}%`;
-            }
-
+            document.getElementById("result-title").innerText = won ? `🏆 ¡RONDA SUPERADA (RACHA: ${streak})!` : `💀 DERROTADO (NV. RIVAL: ${enemyLevel})`;
+            document.getElementById("result-body").innerHTML = `<b>Desglose:</b><br>${lastEvaluationDetails.report}<br><br><b>Estado actual:</b> Racha: ${streak} | Cargas Pulso: ${ultimateCharges}/3`;
             document.getElementById("result-modal").style.display = "flex";
         }
 
@@ -908,3 +944,5 @@
     </script>
 </body>
 </html>
+
+    
