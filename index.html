@@ -487,11 +487,12 @@
         }
 
         // ALGORITMO OPCIÓN A: Genera un valor aleatorio entre 1 y 9999 formateado a xxxx.jpg
-        function getRandomMultimediaImage() {
+            function getRandomMultimediaImage() {
             let randomNum = Math.floor(Math.random() * 9999) + 1;
             let formattedName = String(randomNum).padStart(4, '0') + ".jpg";
-            return `multimedia/${formattedName}`;
+            return formattedName; // <--- Directorio correcto (devuelve directamente '0001.jpg', etc.)
         }
+
 
         function toggleGuide() {
             playBeep(600, 'sine', 0.05);
