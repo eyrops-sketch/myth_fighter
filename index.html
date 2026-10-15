@@ -80,8 +80,7 @@
             color: #000;
             box-shadow: 0 0 12px #00ffff;
         }
-
-        .modal-overlay {
+               .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -155,7 +154,7 @@
             border: 1px solid #00ffff;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
-                #entorno-banner {
+        #entorno-banner {
             background-color: rgba(0, 20, 40, 0.8);
             border: 2px solid var(--theme-color, #00ffff);
             color: var(--theme-color, #00ffff);
@@ -188,8 +187,7 @@
             text-align: center;
             box-shadow: 0 0 8px rgba(255, 255, 0, 0.2);
         }
-
-        .main-layout {
+               .main-layout {
             display: flex;
             gap: 10px;
             align-items: stretch;
@@ -408,7 +406,7 @@
             <p>⚠️ <b>Duelo Espejo:</b> Mismo elemento que el monstruo penaliza por fatiga (salvo con Estado Campo de Resonancia).</p>
 
             <h3>4. LEYENDA CROMÁTICA DE CLIMAS Y SEVERIDAD</h3>
-            <p>• <b>CLIMA FUEGO (<span style="color:#ff6600">Naranja</span>) / HIELO (<span style="color:#00ffff">Cian</span>) / ÁCIDA (<span style="color:#cc44ff">Morado</span>):</b> Sev 2.<br>
+            <p>• <b>CLIMA FUEGO (<span style="color:#ff6600">Naranja</span>) / HIELO (<span style="color:#00d4ff">Cian</span>) / ÁCIDA (<span style="color:#cc44ff">Morado</span>):</b> Sev 2.<br>
             • <b>CLIMA TEMPLADO (<span style="color:#00ff66">Verde</span>):</b> Sev 1.<br>
             • <b>CLIMA TORMENTOSO (<span style="color:#ffffff">Blanco</span>):</b> Sev 3.<br>
             <i>Soluciones:</i> Usar <b>Armadura</b> (+30 pts) o coincidir tu elemento con el clima para obtener <b>Sinergia Perfecta (+35 pts)</b>.</p>
@@ -701,7 +699,8 @@
             triggerFlash('blue');
             document.getElementById("message").innerHTML = "⚡ ¡Pulso Oculto liberado! +30% HP recuperado.";
         }
-                function updateUI() {
+
+        function updateUI() {
             document.getElementById("hero-lvl-txt").innerText = `RACHA: ${streak}`;
             document.getElementById("enemy-lvl-display").innerText = `RIVAL NV.${enemyLevel}`;
             document.getElementById("best-streak-txt").innerText = `RÉCORD: ${bestStreak}`;
@@ -794,7 +793,7 @@
             } else if (element === "Fuego") {
                 img.style.filter = bf + "sepia(100%) hue-rotate(-30deg) saturate(500%)";
             } else if (element === "Tierra") {
-                img.style.filter = bf + "sepia(100%) hue-rotate(90deg) saturate(300%)"; // Tono Verde Correcto
+                img.style.filter = bf + "sepia(100%) hue-rotate(90deg) saturate(300%)";
             } else if (element === "Rayos") {
                 img.style.filter = bf + "sepia(100%) hue-rotate(55deg) saturate(600%) brightness(120%)";
             } else if (element === "Veneno") {
@@ -802,8 +801,8 @@
             } else {
                 img.style.filter = bf;
             }
-            }
-                    function triggerFlash(type) {
+        }
+                function triggerFlash(type) {
             playBeep(type === 'green' ? 800 : (type === 'red' ? 120 : (type === 'blue' ? 1000 : 580)), type === 'green' || type === 'blue' ? 'sine' : 'square', 0.2);
             let container = document.getElementById("game-container");
             let frame = document.getElementById("window-frame");
