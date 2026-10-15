@@ -113,8 +113,7 @@
             border-left: 3px solid #ffcc00;
             padding-left: 6px;
         }
-        
-        .modal-btn-row {
+                .modal-btn-row {
             display: flex;
             gap: 6px;
             margin-top: 18px;
@@ -137,7 +136,8 @@
             color: #ffff00;
             border: 3px solid #ffff00;
         }
-                #entorno-banner {
+
+        #entorno-banner {
             background-color: #001122;
             border: 3px solid var(--theme-color, #00ffff);
             color: var(--theme-color, #00ffff);
@@ -328,23 +328,42 @@
             <h2>📖 MANUAL TÁCTICO & MECÁNICAS OCULTAS</h2>
             
             <h3>1. PROGRESIÓN Y BUCLE INFINITO</h3>
-            <p>Combates dinámicos contra monstruos. Sube tu racha al ganar (Rival Nv. +1) o reinicia a 0 al perder.</p>
+            <p>Combates dinámicos contra fichas de monstruos cargadas de la carpeta <b>multimedia/</b> (0001.jpg en adelante).<br>
+            • <b>Victoria:</b> Sube tu racha, asciende al Rival Nv. +1 y reduce ligeramente tus recursos iniciales.<br>
+            • <b>Derrota:</b> Reinicia tu racha a 0, baja al rival Nv. -1 y mejora tus recursos iniciales.</p>
 
-            <h3>2. GESTIÓN DE BARRAS Y FATIGA</h3>
-            <p>Cada clic en una táctica drena recursos en tiempo real (HP -9, MAN -7, ENE -10, VEL -4).</p>
+            <h3>2. GESTIÓN DE BARRAS Y COSTE DE FATIGA</h3>
+            <p>Tus 4 barras (HP, MAN, ENE, VEL) empiezan con bonificaciones según tu nivel actual. <b>Mecánica Oculta de Fatiga:</b> Cada clic en un botón de táctica drena tus recursos en tiempo real (HP -9, MAN -7, ENE -10, VEL -4). Si tu HP llega a 0, colapsas instantáneamente.</p>
 
-            <h3>3. PREVALENCIAS Y SINERGIA (CORREGIDO)</h3>
-            <p>🔥 Fuego > 🌍 Tierra > 🧪 Veneno > ⚡ Rayos > ❄️ Hielo > 🔥 Fuego (+35 pts).<br>
-            <b>¡NUEVO! Sinergia de Clima:</b> Si tu elemento coincide con el clima, ahora ganas un bonus de <b>+35 pts</b> en lugar de penalizarte. ¡Aprovecha tu entorno!</p>
+            <h3>3. PREVALENCIAS ELEMENTALES & SINERGIA DE CLIMA</h3>
+            <p>Cadena cerrada de 1 a 1:<br>
+            🔥 <b style="color:#ff6600">FUEGO</b> vence a <span style="color:#00ff66">🌍 Tierra</span> (+35 pts)<br>
+            🌍 <b style="color:#00ff66">TIERRA</b> vence a <span style="color:#cc44ff">🧪 Veneno</span> (+35 pts)<br>
+            🧪 <b style="color:#cc44ff">VENENO</b> vence a <span style="color:#ffffff">⚡ Rayos</span> (+35 pts)<br>
+            ⚡ <b style="color:#ffffff">RAYOS</b> vence a <span style="color:#00ffff">❄️ Hielo</span> (+35 pts)<br>
+            ❄️ <b style="color:#00ffff">HIELO</b> vence a <span style="color:#ff6600">🔥 Fuego</span> (+35 pts)</p>
+            <p>⚠️ <b>Duelo Espejo:</b> Mismo elemento que el monstruo penaliza por fatiga `Math.max(10, Fatiga / 2)`.<br>
+            ☀️ <b>¡NUEVO! Sinergia de Clima:</b> Coincidir tu elemento con el clima adverso ahora te premia con un bonus de <b>+35 pts</b> en lugar de penalizarte.</p>
+                       <h3>4. LEYENDA CROMÁTICA DE CLIMAS Y SEVERIDAD</h3>
+            <p>El clima tiñe la interfaz de su color distintivo y evalúa penalizaciones estrictas si vas desprotegido:<br>
+            • <b>CLIMA FUEGO (<span style="color:#ff6600">Naranja</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
+            • <b>CLIMA HIELO (<span style="color:#00ffff">Cian</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
+            • <b>CLIMA TEMPLADO (<span style="color:#00ff66">Verde</span>):</b> Sev 1. Desprotegido resta `-20 pts`.<br>
+            • <b>CLIMA TORMENTOSO (<span style="color:#ffffff">Blanco</span>):</b> Sev 3. Desprotegido resta `-60 pts`.<br>
+            • <b>CLIMA LLUVIA ÁCIDA (<span style="color:#cc44ff">Morado</span>):</b> Sev 2. Desprotegido resta `-40 pts`.<br>
+            <i>Soluciones:</i> Usar <b>Armadura</b> otorga `+30 pts`, replicar con el elemento opuesto otorga `+35 pts`, o coincidir el elemento da Sinergia `+35 pts`.</p>
 
-            <h3>4. LEYENDA DE CLIMAS</h3>
-            <p>• Climas (Fuego, Hielo, Ácida): Sev 2. Templado: Sev 1. Tormentoso: Sev 3.<br>
-            <i>Soluciones:</i> Usar <b>Armadura</b> otorga `+30 pts`, o igualar el clima da Sinergia (+35 pts).</p>
+            <h3>5. BONIFICACIONES DE TÁCTICAS (BOTONES)</h3>
+            <p>• <b>DEFENSA:</b> Se premia si HP &lt; 40 | <b>POCIÓN:</b> HP &lt; 35<br>
+            • <b>ATQ FÍSICO:</b> ENE rival &lt; 50 | <b>HECHIZO:</b> MAN rival &lt; 50<br>
+            • <b>ARMADURA:</b> Blindaje defensivo seguro | <b>GLP ÁGIL:</b> VEL rival &gt; tu VEL<br>
+            • <b>DRENAJE:</b> MAN rival ≥ 50<br>
+            ⚠️ <i>Sobrecarga:</i> Más de 3 tácticas penaliza `-10 pts` por cada extra.</p>
 
-            <h3>5. TÁCTICAS Y POSTURAS DE RIESGO</h3>
-            <p>Usa tácticas contextuales para sumar +20 pts. <br>
-            • <b>TEMERARIA:</b> Exige +15 pts sobre el umbral; multiplica puntos x2.<br>
-            • <b>CONSERVADORA:</b> Reduce puntos a la mitad para salvar la ronda de forma segura.</p>
+            <h3>6. POSTURAS DE RIESGO & UMBRAL DE VICTORIA</h3>
+            <p>• <b>EQUILIBRADA:</b> Umbral base `38 + (Nivel * 2)` puntos.<br>
+            • <b>TEMERARIA:</b> Exige umbral +15 pts extra; si lo logras, <b>multiplica tus puntos x2</b>.<br>
+            • <b>CONSERVADORA:</b> Reduce tu puntuación final a la mitad (`/2`), ideal para salvar rachas.</p>
 
             <div class="modal-btn-row">
                 <button class="modal-action-btn" onclick="toggleGuide()">✖ CERRAR MANUAL</button>
@@ -352,7 +371,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: RESULTADO DE RONDA -->
+    <!-- MODAL 2: RESULTADO DE RONDA (VICTORIA / DERROTA CON DESGLOSE DETALLADO) -->
     <div id="result-modal" class="modal-overlay">
         <div class="modal-content" id="result-modal-content">
             <h2 id="result-title">RESUMEN DE RONDA</h2>
@@ -363,7 +382,8 @@
             </div>
         </div>
     </div>
-        <h1>MITOS TÁCTICOS 8-BIT</h1>
+
+    <h1>MITOS TÁCTICOS 8-BIT</h1>
     
     <div id="game-container">
         
@@ -448,7 +468,7 @@
 
         <div id="message">🚪 ¡Combate iniciado! Elige tus tácticas con inteligencia.</div>
     </div>
-        <script>
+            <script>
         const CONFIG_TURN_TIME_LIMIT = 30; 
         
         const elements = ["Fuego", "Hielo", "Tierra", "Rayos", "Veneno"];
@@ -577,7 +597,8 @@
             document.getElementById("message").innerHTML = "¡Combate infinito listo!";
             updateUI(); nextEncounter();
         }
-                function updateUI() {
+
+        function updateUI() {
             document.getElementById("hero-lvl-txt").innerText = `RACHA: ${streak}`;
             document.getElementById("enemy-lvl-display").innerText = `RIVAL NV.${enemyLevel}`;
             document.getElementById("best-streak-txt").innerText = `RÉCORD: ${bestStreak}`;
@@ -598,7 +619,7 @@
         function generateHint() {
             let hint = "💡 Pista: ";
             if (currentEntorno.severidad > 0) {
-                hint += `Clima adverso (${currentEntorno.nombre}). Usa **Armadura**, el elemento opuesto, o el Mismo elemento para Sinergia.`;
+                hint += `Clima adverso (${currentEntorno.nombre}). Usa **Armadura**, o el elemento igual al clima para Sinergia.`;
             } else {
                 let elemWin = Object.keys(elementalWinsAgainst).find(k => elementalWinsAgainst[k].includes(enemy.element));
                 hint += `El rival usa ${enemy.element.toUpperCase()}. Tu mejor elemento ofensivo es **${elemWin || 'Fuego'}**.`;
@@ -729,8 +750,7 @@
                 if (timeLeft <= 0) { clearInterval(timerInterval); evaluateTactics(); }
             }, 100);
         }
-
-        function evaluateTactics() {
+                function evaluateTactics() {
             if (!combatActive) return;
             clearInterval(timerInterval);
             combatActive = false;
@@ -745,6 +765,7 @@
                 tacticScore = -100;
                 report += "💀 <span style='color:#ff5555'>Agotamiento: Tus barras llegaron a cero por exceso de clics.</span><br>";
             } else {
+                // 1. EVALUAR CLIMA (Ahora no bloquea el duelo contra el monstruo)
                 if (currentEntorno.severidad > 0) {
                     if (selection.element === currentEntorno.elementoBase) {
                         tacticScore += 35;
@@ -752,7 +773,6 @@
                     } else if (usaArmadura) {
                         tacticScore += 30;
                         report += `🛡️ <span style="color:#00ff00">Armadura neutralizó el ${currentEntorno.nombre} (+30 pts).</span><br>`;
-                        selection.element = null; 
                     } else if (selection.element && elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(currentEntorno.elementoBase)) {
                         tacticScore += 35;
                         report += `⚡ <span style="color:#00ff00">Réplica elemental perfecta al ${currentEntorno.nombre} (+35 pts).</span><br>`;
@@ -763,7 +783,8 @@
                     }
                 }
 
-                if (selection.element && currentEntorno.severidad === 0) {
+                // 2. EVALUAR DUELO ELEMENTAL CONTRA EL RIVAL (Siempre se calcula)
+                if (selection.element) {
                     if (elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(enemy.element)) {
                         tacticScore += 35; 
                         report += `🔥 Tu elemento (${selection.element}) venció al del rival (${enemy.element}) [+35 pts].<br>`;
@@ -773,10 +794,11 @@
                         tacticScore -= penalizacionFatiga;
                         report += `⚖️ Duelo Espejo: Mismo elemento (${selection.element}) que el rival. Penalizado por fatiga (-${penalizacionFatiga} pts).<br>`;
                     } else { 
-                        report += `❌ Tu elemento (${selection.element || 'Ninguno'}) fue débil frente a (${enemy.element}) [0 pts].<br>`; 
+                        report += `❌ Tu elemento (${selection.element}) fue débil frente a (${enemy.element}) [0 pts].<br>`; 
                     }
                 }
 
+                // 3. EVALUAR TÁCTICAS DE APOYO
                 let actionCount = selection.actions.length;
                 if (actionCount === 0) {
                     report += "❌ No seleccionaste ninguna táctica de apoyo.<br>";
