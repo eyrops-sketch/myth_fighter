@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Interfaz Reorganizada</title>
+    <title>Mitos Tácticos 8-Bits - Definitivo</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -15,27 +15,26 @@
             padding: 2px;
             width: 100%;
             height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             box-sizing: border-box;
         }
         h1 {
-            font-size: 8px;
+            font-size: 10px;
             text-shadow: 2px 2px #ff00ff;
-            margin: 3px 0;
+            margin: 4px 0;
         }
         #game-container {
             width: 100vw;
-            height: 96vh;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             border: 3px solid #00ffff;
             background-color: #05050a;
-            padding: 6px;
+            padding: 8px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+            gap: 6px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
             position: relative;
         }
         .flash-red {
@@ -46,34 +45,33 @@
             background-color: #ffffff !important;
         }
         .stats-panel {
-            font-size: 6px;
+            font-size: 8px;
             display: flex;
             justify-content: space-between;
             border-bottom: 2px dashed #ff00ff;
-            padding-bottom: 3px;
+            padding-bottom: 5px;
+            color: #ffff00;
         }
-        /* Zona superior: Indicadores a la izquierda, Imagen a la derecha */
+        /* Layout principal: Imagen a la izquierda, Estados a la derecha (como en la captura 2) */
         .main-layout {
             display: flex;
-            gap: 6px;
-            margin: 4px 0;
+            gap: 8px;
         }
-        .left-info-side {
+        .left-image-side {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-info-side {
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 6px;
             justify-content: space-between;
         }
-        .right-image-side {
-            flex: 1.2;
-            display: flex;
-            flex-direction: column;
-        }
         #window-frame {
             width: 100%;
             aspect-ratio: 9/16;
-            max-height: 210px;
             border: 3px solid #ff00ff;
             background-color: #000;
             display: flex;
@@ -93,7 +91,7 @@
             image-rendering: pixelated;
         }
         #monster-placeholder {
-            font-size: 48px;
+            font-size: 54px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -102,12 +100,12 @@
             background-color: #000;
         }
         .info-card {
-            background-color: #111a2e;
-            border: 2px solid #00ffff;
-            font-size: 5px;
-            padding: 8px 4px;
+            background-color: #1a0033;
+            border: 2px solid #ff00ff;
+            font-size: 6.5px;
+            padding: 10px 4px;
             text-align: center;
-            color: #00ffff;
+            color: #ffff00;
             flex: 1;
             display: flex;
             align-items: center;
@@ -117,8 +115,8 @@
             width: 100%;
             background-color: #330033;
             border: 2px solid #ff00ff;
-            height: 6px;
-            margin-bottom: 2px;
+            height: 8px;
+            margin-top: 2px;
         }
         .hp-bar-fill {
             background-color: #ff00ff;
@@ -130,8 +128,8 @@
             width: 100%;
             background-color: #003333;
             border: 2px solid #00ffff;
-            height: 5px;
-            margin-bottom: 3px;
+            height: 6px;
+            margin-bottom: 4px;
         }
         #timer-bar-fill {
             background-color: #00ffff;
@@ -140,27 +138,28 @@
             transition: width 0.1s linear;
         }
         .selector-row {
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             text-align: left;
         }
         .selector-label {
-            font-size: 5px;
+            font-size: 6px;
             color: #ff00ff;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
             display: block;
         }
         .row-grid-5 {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 2px;
+            gap: 3px;
         }
+        /* Botones grandes y legibles, sin tonos morados oscuros */
         .tactical-btn {
-            background-color: #1a0033;
+            background-color: #002244;
             color: #00ffff;
             border: 2px solid #00ffff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 4.5px;
-            padding: 7px 1px;
+            font-size: 5.5px;
+            padding: 10px 2px;
             cursor: pointer;
             text-align: center;
         }
@@ -176,49 +175,54 @@
         }
         #action-execute-btn {
             width: 100%;
-            background-color: #ff00ff;
+            background-color: #ff0077;
             color: #fff;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 6.5px;
-            padding: 8px;
-            margin-top: 3px;
+            font-size: 7.5px;
+            padding: 11px;
             cursor: pointer;
-            box-shadow: 0 0 6px rgba(255, 0, 255, 0.6);
+            box-shadow: 0 0 10px rgba(255, 0, 119, 0.7);
+        }
+        #action-execute-btn:hover:not(:disabled) {
+            background-color: #ff3399;
         }
         #action-execute-btn:disabled {
-            background-color: #441144;
-            border-color: #444;
-            color: #777;
+            background-color: #331122;
+            border-color: #555;
+            color: #888;
             cursor: not-allowed;
         }
         #message {
-            font-size: 5px;
-            margin-top: 3px;
-            min-height: 20px;
-            line-height: 1.2;
-            color: #fff;
+            font-size: 6.5px;
+            margin-top: 4px;
+            min-height: 26px;
+            line-height: 1.3;
+            color: #ffff00;
+            background-color: #110022;
+            border: 1px solid #ff00ff;
+            padding: 6px;
         }
         #upgrade-screen {
             display: none;
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 10, 0.96);
+            background: rgba(5, 5, 10, 0.97);
             z-index: 10;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 20px;
             box-sizing: border-box;
         }
         .upgrade-btn {
-            background-color: #2a0044;
+            background-color: #003344;
             color: #ffff00;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 6px;
-            padding: 10px;
-            margin: 5px;
+            font-size: 7.5px;
+            padding: 14px;
+            margin: 8px;
             cursor: pointer;
             width: 100%;
         }
@@ -231,7 +235,7 @@
     <div id="game-container">
         
         <div id="upgrade-screen">
-            <h2 style="font-size: 7px; color: #ffff00; margin-bottom: 10px;">¡VICTORIA! ELIGE UNA MEJORA</h2>
+            <h2 style="font-size: 9px; color: #ffff00; margin-bottom: 14px;">🏆 ¡VICTORIA! ELIGE UNA MEJORA</h2>
             <button class="upgrade-btn" onclick="applyUpgrade(1)">⭐ +20% Daño Crítico en D10</button>
             <button class="upgrade-btn" onclick="applyUpgrade(2)">❤️ +30 HP Máximos</button>
             <button class="upgrade-btn" onclick="applyUpgrade(3)">⏱️ +3s extra de Cronómetro</button>
@@ -243,19 +247,19 @@
             <span id="score-txt">PTS: 0</span>
         </div>
 
-        <!-- Layout superior invertido: Info a la izquierda, Imagen a la derecha -->
+        <!-- Layout superior: Imagen a la izquierda, Estados a la derecha -->
         <div class="main-layout">
-            <div class="left-info-side">
-                <div class="info-card" id="info-target-lvl">OBJ NVL: ?</div>
-                <div class="info-card" id="info-estado-alterado">ESTADO: OK</div>
-                <div class="info-card" id="info-dado">DADO: [ 🎲 ]</div>
-            </div>
-
-            <div class="right-image-side">
+            <div class="left-image-side">
                 <div id="window-frame">
                     <img id="monster-img" src="" alt="Criatura" style="display: none;">
                     <div id="monster-placeholder">🚪</div>
                 </div>
+            </div>
+
+            <div class="right-info-side">
+                <div class="info-card" id="info-target-lvl">OBJ NVL: ?</div>
+                <div class="info-card" id="info-estado-alterado">ESTADO: OK</div>
+                <div class="info-card" id="info-dado">DADO: [ 🎲 ]</div>
             </div>
         </div>
 
@@ -306,7 +310,7 @@
 
         <button id="action-execute-btn" onclick="executeTurnWithDice()" disabled>🎲 ¡LANZAR DADO Y EJECUTAR!</button>
 
-        <div id="message">Espera a que se abra la ventana...</div>
+        <div id="message">🚪 Espera a que se abra la ventana...</div>
     </div>
         <script>
         let TURN_TIME_LIMIT = 12; 
@@ -383,7 +387,7 @@
             document.getElementById("info-estado-alterado").innerText = "ESTADO: OK";
             document.getElementById("info-dado").innerText = "DADO: [ 🎲 ]";
 
-            document.getElementById("message").innerText = "🚪 Buscando enemigo...";
+            document.getElementById("message").innerText = "🚪 Buscando enemigo en la puerta...";
             document.getElementById("enemy-hp-fill").style.width = "100%";
             document.getElementById("timer-bar-fill").style.width = "100%";
             resetSelections();
@@ -396,7 +400,7 @@
         function openWindow() {
             playBeep(440, 'square', 0.1); 
 
-            let randomId = 1; // Cambiar número máximo de imágenes aquí si añades más (ej: Math.floor(Math.random() * 50) + 1)
+            let randomId = 1; // Cambiar número máximo si añades más imágenes (ej: Math.floor(Math.random() * 50) + 1)
             let formattedName = String(randomId).padStart(4, '0') + ".jpg";
 
             let randomElem = elements[Math.floor(Math.random() * elements.length)];
@@ -433,7 +437,7 @@
                 document.getElementById("info-target-lvl").innerText = `OBJ NVL: ${targetLevel}`;
             }
 
-            document.getElementById("message").innerText = isBoss ? "⚠️ ¡ALERTA: JEFE SUPREMO!" : "⚔️ ¡Combate iniciado! Elige táctica.";
+            document.getElementById("message").innerText = isBoss ? "⚠️ ¡JEFE SUPREMO APARECIDO!" : "⚔️ ¡Ventana abierta! Elige tu táctica.";
             
             combatActive = true;
             setAllButtonsEnabled(true);
@@ -512,7 +516,7 @@
             if (!selection.stance) selection.stance = "Defensa";
             if (!selection.focus) selection.focus = "Físico";
 
-            document.getElementById("message").innerText = "⏰ ¡Tiempo agotado! Auto-ejecutando...";
+            document.getElementById("message").innerText = "⏰ ¡Tiempo agotado! Turno automático.";
             setTimeout(() => { executeTurnWithDice(); }, 800);
         }
 
@@ -562,22 +566,22 @@
 
             let baseDamagePool = 60;
             let totalPower = 0;
-            let msg = `🎲 [Dado ${diceRoll}] `;
+            let report = `🎲 [Dado: ${diceRoll}] `;
 
             let row1Val = 0;
             if (elementalWinsAgainst[selection.element].includes(currentEnemy.element)) {
                 row1Val = 1.0;
-                msg += `¡Elemento dominante! `;
+                report += `¡Elemento efectivo! `;
                 if (selection.element === "Fuego") { currentEnemy.status = "QUEMADO"; currentEnemy.statusTurns = 2; }
                 else if (selection.element === "Hielo") { currentEnemy.status = "CONGELADO"; currentEnemy.statusTurns = 2; }
                 else if (selection.element === "Veneno") { currentEnemy.status = "ENVENENADO"; currentEnemy.statusTurns = 3; }
                 else if (selection.element === "Rayos") { currentEnemy.status = "PARALIZADO"; currentEnemy.statusTurns = 2; }
             } else if (selection.element === currentEnemy.element) {
                 row1Val = 0.3;
-                msg += `Choque elemental. `;
+                report += `Choque elemental. `;
             } else {
                 row1Val = 0.05;
-                msg += `Desventaja. `;
+                report += `Elemento débil. `;
             }
             totalPower += baseDamagePool * (ROW_WEIGHTS.row1_element / 100) * row1Val;
 
@@ -587,11 +591,11 @@
 
             if (currentEnemy.status === "QUEMADO" && currentEnemy.statusTurns > 0) {
                 currentEnemy.hp -= 10;
-                msg += "🔥 Quemadura (-10). ";
+                report += "🔥 Quemado (-10). ";
                 currentEnemy.statusTurns--;
             } else if (currentEnemy.status === "ENVENENADO" && currentEnemy.statusTurns > 0) {
                 currentEnemy.hp -= 8;
-                msg += "🧪 Veneno (-8). ";
+                report += "🧪 Envenenado (-8). ";
                 currentEnemy.statusTurns--;
             }
 
@@ -601,14 +605,14 @@
             let row3Val = 0.5;
             if (selection.focus === currentEnemy.weakFocus) {
                 row3Val = 1.2;
-                msg += `¡Punto débil! `;
+                report += `¡Punto débil! `;
             } else {
                 if (selection.focus === "Poción") {
                     heroHp = Math.min(heroMaxHp, heroHp + 25);
-                    msg += "¡Poción (+25 HP)! ";
+                    report += "🧪 ¡Poción (+25 HP)! ";
                 } else if (selection.focus === "Talismán") {
                     heroCoefficient += 0.3;
-                    msg += "¡Talismán extra! ";
+                    report += "✨ ¡Talismán (+Atq)! ";
                 }
             }
             totalPower += baseDamagePool * (ROW_WEIGHTS.row3_focus / 100) * row3Val;
@@ -617,8 +621,9 @@
             currentEnemy.hp -= finalDamageToEnemy;
             updateEnemyHpBar();
 
-            msg += `Deals [${finalDamageToEnemy} DMG]. `;
+            report += `💥 Haces ${finalDamageDamageToEnemy = finalDamageToEnemy} DMG. `;
 
+            // Comprobar si el enemigo ha muerto (VICTORIA DEL HÉROE)
             if (currentEnemy.hp <= 0) {
                 score += currentEnemy.isBoss ? 1500 : 500;
                 heroLevel++;
@@ -630,7 +635,7 @@
                     localStorage.setItem("mitos_best_score", score);
                 }
 
-                document.getElementById("message").innerText = "🏆 ¡Enemigo derrotado!";
+                document.getElementById("message").innerText = `🏆 ¡VICTORIA! Derrotaste al enemigo. Subes a Nivel ${heroLevel}.`;
                 document.getElementById("upgrade-screen").style.display = "flex";
                 return;
             }
@@ -641,13 +646,13 @@
 
             if (currentEnemy.status === "CONGELADO") {
                 enemyDmg = Math.floor(enemyDmg / 2);
-                msg += "❄️ Congelado. ";
+                report += "❄️ Congelado. ";
                 currentEnemy.statusTurns--;
                 if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
             } else if (currentEnemy.status === "PARALIZADO") {
                 if (Math.random() > 0.5) {
                     enemyDmg = 0;
-                    msg += "⚡ Paralizado. ";
+                    report += "⚡ ¡Paralizado (Fallo enemigo)! ";
                 }
                 currentEnemy.statusTurns--;
                 if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
@@ -655,17 +660,17 @@
             
             if (selection.stance === "Defensa" || selection.focus === "Armadura") {
                 enemyDmg = Math.floor(enemyDmg / 3);
-                msg += "¡Defensa! ";
+                report += "🛡️ ¡Defensa! ";
             } else if (selection.stance === "Esquiva" && Math.random() > 0.3) {
                 enemyDmg = 0;
-                msg += "¡Esquivado! ";
+                report += "💨 ¡Esquivado con éxito! ";
             } else if (selection.stance === "Carga") {
                 enemyDmg += 12;
-                msg += "¡Carga arriesgada! ";
+                report += "⚠️ Carga arriesgada. ";
             } else if (selection.stance === "Contra") {
                 enemyDmg = Math.floor(enemyDmg / 2);
                 currentEnemy.hp -= 15;
-                msg += "¡Contraataque! ";
+                report += "⚔️ ¡Contraataque (-15 al rival)! ";
             }
 
             if (enemyDmg > 0) { triggerFlash('red'); }
@@ -673,9 +678,13 @@
             heroHp -= enemyDmg;
             updateUI();
 
-            if (heroHp <= 0) { gameOver(); return; }
+            // Comprobar si el héroe ha muerto (DERROTA)
+            if (heroHp <= 0) { 
+                gameOver(); 
+                return; 
+            }
 
-            document.getElementById("message").innerText = msg + `Recibes (-${enemyDmg} HP).`;
+            document.getElementById("message").innerText = report + `⚠️ Recibes ${enemyDmg} daño.`;
             setTimeout(nextEncounter, 3500);
         }
 
@@ -719,7 +728,7 @@
             document.getElementById("monster-img").style.display = "none";
             document.getElementById("monster-placeholder").style.display = "flex";
             document.getElementById("monster-placeholder").innerText = "💀";
-            document.getElementById("message").innerText = `💀 Has muerto en Nvl ${heroLevel}. Pts: ${score} (Récord: ${best}).`;
+            document.getElementById("message").innerText = `💀 ¡DERROTA! Has caído en Nvl ${heroLevel}. Pts: ${score} (Récord: ${best}). Recarga para reiniciar.`;
         }
 
         startGame();
