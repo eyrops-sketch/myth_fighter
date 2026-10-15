@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Pantalla Completa</title>
+    <title>Mitos Tácticos 8-Bits - Interfaz Reorganizada</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -12,31 +12,30 @@
             font-family: 'Press Start 2P', monospace;
             text-align: center;
             margin: 0;
-            padding: 0;
+            padding: 2px;
             width: 100%;
             height: 100vh;
             overflow: hidden;
             box-sizing: border-box;
         }
         h1 {
-            font-size: 10px;
+            font-size: 8px;
             text-shadow: 2px 2px #ff00ff;
-            margin: 6px 0;
+            margin: 3px 0;
         }
-        /* Contenedor principal que ocupa toda la pantalla del móvil */
         #game-container {
             width: 100vw;
-            height: 94vh;
-            max-width: 600px;
+            height: 96vh;
+            max-width: 500px;
             margin: 0 auto;
             border: 3px solid #00ffff;
             background-color: #05050a;
-            padding: 8px;
+            padding: 6px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
             position: relative;
         }
         .flash-red {
@@ -47,28 +46,34 @@
             background-color: #ffffff !important;
         }
         .stats-panel {
-            font-size: 7px;
+            font-size: 6px;
             display: flex;
             justify-content: space-between;
             border-bottom: 2px dashed #ff00ff;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
         }
+        /* Zona superior: Indicadores a la izquierda, Imagen a la derecha */
         .main-layout {
             display: flex;
-            gap: 8px;
-            flex: 1;
-            min-height: 0;
-            margin: 6px 0;
+            gap: 6px;
+            margin: 4px 0;
         }
-        .left-side {
+        .left-info-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            justify-content: space-between;
+        }
+        .right-image-side {
             flex: 1.2;
             display: flex;
             flex-direction: column;
         }
-        /* Marco adaptado 9:16 que ocupa todo el lateral */
         #window-frame {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 9/16;
+            max-height: 210px;
             border: 3px solid #ff00ff;
             background-color: #000;
             display: flex;
@@ -87,9 +92,8 @@
             object-fit: cover;
             image-rendering: pixelated;
         }
-        /* Puerta de transición ampliada para ocupar todo el marco */
         #monster-placeholder {
-            font-size: 64px;
+            font-size: 48px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -97,26 +101,23 @@
             justify-content: center;
             background-color: #000;
         }
-        .right-side {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            justify-content: space-between;
-        }
         .info-card {
             background-color: #111a2e;
             border: 2px solid #00ffff;
-            font-size: 6px;
+            font-size: 5px;
             padding: 8px 4px;
             text-align: center;
             color: #00ffff;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .hp-bar-container {
             width: 100%;
             background-color: #330033;
             border: 2px solid #ff00ff;
-            height: 8px;
+            height: 6px;
             margin-bottom: 2px;
         }
         .hp-bar-fill {
@@ -129,8 +130,8 @@
             width: 100%;
             background-color: #003333;
             border: 2px solid #00ffff;
-            height: 6px;
-            margin-bottom: 4px;
+            height: 5px;
+            margin-bottom: 3px;
         }
         #timer-bar-fill {
             background-color: #00ffff;
@@ -139,28 +140,27 @@
             transition: width 0.1s linear;
         }
         .selector-row {
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             text-align: left;
         }
         .selector-label {
-            font-size: 6px;
+            font-size: 5px;
             color: #ff00ff;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             display: block;
         }
         .row-grid-5 {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 3px;
+            gap: 2px;
         }
-        /* Botones tácticos grandes y totalmente legibles */
         .tactical-btn {
             background-color: #1a0033;
             color: #00ffff;
             border: 2px solid #00ffff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 5.5px;
-            padding: 9px 2px;
+            font-size: 4.5px;
+            padding: 7px 1px;
             cursor: pointer;
             text-align: center;
         }
@@ -180,11 +180,11 @@
             color: #fff;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 7.5px;
-            padding: 10px;
-            margin-top: 4px;
+            font-size: 6.5px;
+            padding: 8px;
+            margin-top: 3px;
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+            box-shadow: 0 0 6px rgba(255, 0, 255, 0.6);
         }
         #action-execute-btn:disabled {
             background-color: #441144;
@@ -193,10 +193,10 @@
             cursor: not-allowed;
         }
         #message {
-            font-size: 6px;
-            margin-top: 4px;
-            min-height: 24px;
-            line-height: 1.3;
+            font-size: 5px;
+            margin-top: 3px;
+            min-height: 20px;
+            line-height: 1.2;
             color: #fff;
         }
         #upgrade-screen {
@@ -208,7 +208,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
         .upgrade-btn {
@@ -216,9 +216,9 @@
             color: #ffff00;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 7px;
-            padding: 12px;
-            margin: 6px;
+            font-size: 6px;
+            padding: 10px;
+            margin: 5px;
             cursor: pointer;
             width: 100%;
         }
@@ -231,7 +231,7 @@
     <div id="game-container">
         
         <div id="upgrade-screen">
-            <h2 style="font-size: 8px; color: #ffff00; margin-bottom: 12px;">¡SUBES DE NIVEL! ELIGE UNA MEJORA</h2>
+            <h2 style="font-size: 7px; color: #ffff00; margin-bottom: 10px;">¡VICTORIA! ELIGE UNA MEJORA</h2>
             <button class="upgrade-btn" onclick="applyUpgrade(1)">⭐ +20% Daño Crítico en D10</button>
             <button class="upgrade-btn" onclick="applyUpgrade(2)">❤️ +30 HP Máximos</button>
             <button class="upgrade-btn" onclick="applyUpgrade(3)">⏱️ +3s extra de Cronómetro</button>
@@ -243,18 +243,19 @@
             <span id="score-txt">PTS: 0</span>
         </div>
 
+        <!-- Layout superior invertido: Info a la izquierda, Imagen a la derecha -->
         <div class="main-layout">
-            <div class="left-side">
+            <div class="left-info-side">
+                <div class="info-card" id="info-target-lvl">OBJ NVL: ?</div>
+                <div class="info-card" id="info-estado-alterado">ESTADO: OK</div>
+                <div class="info-card" id="info-dado">DADO: [ 🎲 ]</div>
+            </div>
+
+            <div class="right-image-side">
                 <div id="window-frame">
                     <img id="monster-img" src="" alt="Criatura" style="display: none;">
                     <div id="monster-placeholder">🚪</div>
                 </div>
-            </div>
-
-            <div class="right-side">
-                <div class="info-card" id="info-target-lvl">OBJ NVL: ?</div>
-                <div class="info-card" id="info-estado-alterado">ESTADO: OK</div>
-                <div class="info-card" id="info-dado">DADO: [ 🎲 ]</div>
             </div>
         </div>
 
@@ -307,7 +308,7 @@
 
         <div id="message">Espera a que se abra la ventana...</div>
     </div>
-       <script>
+        <script>
         let TURN_TIME_LIMIT = 12; 
         const DICE_MAX_SIDES = 10;      
 
@@ -382,7 +383,7 @@
             document.getElementById("info-estado-alterado").innerText = "ESTADO: OK";
             document.getElementById("info-dado").innerText = "DADO: [ 🎲 ]";
 
-            document.getElementById("message").innerText = "Preparando encuentro...";
+            document.getElementById("message").innerText = "🚪 Buscando enemigo...";
             document.getElementById("enemy-hp-fill").style.width = "100%";
             document.getElementById("timer-bar-fill").style.width = "100%";
             resetSelections();
@@ -395,7 +396,7 @@
         function openWindow() {
             playBeep(440, 'square', 0.1); 
 
-            let randomId = 1; // Cambiar aquí si añades más imágenes (ej. Math.floor(Math.random() * 50) + 1)
+            let randomId = 1; // Cambiar número máximo de imágenes aquí si añades más (ej: Math.floor(Math.random() * 50) + 1)
             let formattedName = String(randomId).padStart(4, '0') + ".jpg";
 
             let randomElem = elements[Math.floor(Math.random() * elements.length)];
@@ -432,7 +433,7 @@
                 document.getElementById("info-target-lvl").innerText = `OBJ NVL: ${targetLevel}`;
             }
 
-            document.getElementById("message").innerText = isBoss ? "⚠️ ¡CUIDADO, ES UN JEFE SUPREMO!" : "¡Ventana abierta!";
+            document.getElementById("message").innerText = isBoss ? "⚠️ ¡ALERTA: JEFE SUPREMO!" : "⚔️ ¡Combate iniciado! Elige táctica.";
             
             combatActive = true;
             setAllButtonsEnabled(true);
@@ -511,7 +512,7 @@
             if (!selection.stance) selection.stance = "Defensa";
             if (!selection.focus) selection.focus = "Físico";
 
-            document.getElementById("message").innerText = "⏰ Tiempo agotado. Auto-ejecutando...";
+            document.getElementById("message").innerText = "⏰ ¡Tiempo agotado! Auto-ejecutando...";
             setTimeout(() => { executeTurnWithDice(); }, 800);
         }
 
@@ -561,7 +562,7 @@
 
             let baseDamagePool = 60;
             let totalPower = 0;
-            let msg = `🎲 [Diff: ${levelDiff}] `;
+            let msg = `🎲 [Dado ${diceRoll}] `;
 
             let row1Val = 0;
             if (elementalWinsAgainst[selection.element].includes(currentEnemy.element)) {
@@ -616,7 +617,7 @@
             currentEnemy.hp -= finalDamageToEnemy;
             updateEnemyHpBar();
 
-            msg += `[${finalDamageToEnemy} DMG]. `;
+            msg += `Deals [${finalDamageToEnemy} DMG]. `;
 
             if (currentEnemy.hp <= 0) {
                 score += currentEnemy.isBoss ? 1500 : 500;
@@ -629,6 +630,7 @@
                     localStorage.setItem("mitos_best_score", score);
                 }
 
+                document.getElementById("message").innerText = "🏆 ¡Enemigo derrotado!";
                 document.getElementById("upgrade-screen").style.display = "flex";
                 return;
             }
@@ -673,7 +675,7 @@
 
             if (heroHp <= 0) { gameOver(); return; }
 
-            document.getElementById("message").innerText = msg + `Enemigo responde (-${enemyDmg} HP).`;
+            document.getElementById("message").innerText = msg + `Recibes (-${enemyDmg} HP).`;
             setTimeout(nextEncounter, 3500);
         }
 
@@ -717,7 +719,7 @@
             document.getElementById("monster-img").style.display = "none";
             document.getElementById("monster-placeholder").style.display = "flex";
             document.getElementById("monster-placeholder").innerText = "💀";
-            document.getElementById("message").innerText = `Has caído en Nvl ${heroLevel}. Pts: ${score} (Récord: ${best}).`;
+            document.getElementById("message").innerText = `💀 Has muerto en Nvl ${heroLevel}. Pts: ${score} (Récord: ${best}).`;
         }
 
         startGame();
