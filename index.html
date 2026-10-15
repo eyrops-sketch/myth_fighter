@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Alta Legibilidad</title>
+    <title>Mitos Tácticos 8-Bits - Cian Definitivo</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -20,7 +20,7 @@
         }
         h1 {
             font-size: 13px;
-            text-shadow: 2px 2px #ff00ff;
+            text-shadow: 2px 2px #00ffff;
             margin: 4px 0;
             color: #ffff00;
         }
@@ -46,21 +46,20 @@
             font-size: 10px;
             display: flex;
             justify-content: space-between;
-            border-bottom: 3px dashed #ff00ff;
+            border-bottom: 3px dashed #00ffff;
             padding-bottom: 6px;
             color: #ffff00;
         }
         
         #entorno-banner {
-            background-color: #110022;
-            border: 3px solid #ff00ff;
-            color: #ff00ff;
-            font-size: 8px;
+            background-color: #001122;
+            border: 3px solid #00ffff;
+            color: #00ffff;
+            font-size: 9px;
             padding: 8px;
             line-height: 1.4;
         }
 
-        /* Layout principal: Imagen a la izquierda, Rival a la derecha ocupando el espacio */
         .main-layout {
             display: flex;
             gap: 8px;
@@ -81,7 +80,7 @@
         #window-frame {
             width: 100%;
             aspect-ratio: 9/16;
-            border: 3px solid #ff00ff;
+            border: 3px solid #00ffff;
             background-color: #000;
             display: flex;
             align-items: center;
@@ -109,7 +108,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            background: #111;
+            background: #001122;
             border: 3px solid #00ffff;
             padding: 8px;
             height: 100%;
@@ -118,7 +117,7 @@
         }
         .bar-title {
             font-size: 9px;
-            color: #ff00ff;
+            color: #00ffff;
             text-align: center;
             margin-bottom: 4px;
         }
@@ -156,8 +155,8 @@
 
         #timer-bar-container {
             width: 100%;
-            background-color: #111;
-            border: 3px solid #ff00ff;
+            background-color: #001122;
+            border: 3px solid #00ffff;
             height: 10px;
         }
         #timer-bar-fill {
@@ -181,7 +180,6 @@
         .row-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
         .row-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 
-        /* Botones hiper-legibles y grandes */
         .tactical-btn {
             background-color: #001122;
             color: #00ffff;
@@ -206,26 +204,27 @@
         }
         #action-execute-btn {
             width: 100%;
-            background-color: #ff00ff;
-            color: #fff;
+            background-color: #00ffff;
+            color: #000;
             border: 4px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
             font-size: 10px;
             padding: 14px;
             cursor: pointer;
             margin-top: 4px;
+            font-weight: bold;
         }
-        #action-execute-btn:hover:not(:disabled) { background-color: #ff33ff; }
+        #action-execute-btn:hover:not(:disabled) { background-color: #33ffff; }
         #action-execute-btn:disabled { background-color: #222; border-color: #555; color: #666; cursor: not-allowed; }
         
         #message {
-            font-size: 8px;
+            font-size: 8.5px;
             margin-top: 4px;
-            min-height: 50px;
+            min-height: 55px;
             line-height: 1.5;
             color: #ffff00;
-            background-color: #111;
-            border: 3px solid #ff00ff;
+            background-color: #001122;
+            border: 3px solid #00ffff;
             padding: 8px;
             text-align: left;
         }
@@ -244,15 +243,13 @@
 
         <div id="entorno-banner">CLIMA: DESPEJADO</div>
 
-        <!-- Estado del jugador arriba -->
-        <div class="bars-container" style="border-color: #ff00ff;">
+        <div class="bars-container">
             <div class="bar-title">TU ESTADO ACTUAL</div>
             <div class="bar-row"><span class="bar-label">HP</span><div class="bar-outer"><div id="hero-hp-fill" class="bar-inner-hp"></div></div></div>
             <div class="bar-row"><span class="bar-label">MAN</span><div class="bar-outer"><div id="hero-mana-fill" class="bar-inner-mana"></div></div></div>
             <div class="bar-row"><span class="bar-label">ENE</span><div class="bar-outer"><div id="hero-energy-fill" class="bar-inner-energy"></div></div></div>
         </div>
 
-        <!-- Imagen izquierda / Rival a la derecha rellenando el espacio -->
         <div class="main-layout">
             <div class="left-image-side">
                 <div id="window-frame">
@@ -305,15 +302,15 @@
         <div class="selector-row">
             <span class="selector-label">3. POSTURA DE RIESGO:</span>
             <div class="row-grid-3">
-                <button class="tactical-btn" style="color:#ff0000; border-color:#ff0000; font-size:6px;" onclick="selectOpt('risk', 'Temeraria', this)">TEMERARIA<br>(x2 Pts)</button>
+                <button class="tactical-btn" style="color:#ff5555; border-color:#ff5555; font-size:6px;" onclick="selectOpt('risk', 'Temeraria', this)">TEMERARIA<br>(x2 Pts)</button>
                 <button class="tactical-btn" style="color:#ffff00; border-color:#ffff00; font-size:6px;" onclick="selectOpt('risk', 'Equilibrada', this)">EQUILIBRADA<br>(Normal)</button>
-                <button class="tactical-btn" style="color:#00ff00; border-color:#00ff00; font-size:6px;" onclick="selectOpt('risk', 'Conservadora', this)">CONSERVADORA<br>(Salva vida)</button>
+                <button class="tactical-btn" style="color:#55ff55; border-color:#55ff55; font-size:6px;" onclick="selectOpt('risk', 'Conservadora', this)">CONSERVADORA<br>(Salva vida)</button>
             </div>
         </div>
 
         <button id="action-execute-btn" onclick="evaluateTactics()" disabled>⚖️ CONFIRMAR JUGADA</button>
 
-        <div id="message">🚪 Esperando situación...</div>
+        <div id="message">🚪 Esperando situación táctica...</div>
     </div>
         <script>
         const CONFIG_TURN_TIME_LIMIT = 25; 
@@ -359,9 +356,11 @@
         }
 
         function startGame() {
-            roundsSurvived = 0; score = 0;
-            document.getElementById("messageinnerHTML = "¡Analiza las barras y el clima!";
-            updateUI(); nextEncounter();
+            roundsSurvived = 0; 
+            score = 0;
+            document.getElementById("message").innerHTML = "¡Analiza las barras y el clima!";
+            updateUI(); 
+            nextEncounter();
         }
 
         function updateUI() {
@@ -385,7 +384,7 @@
             
             resetSelections();
             setAllButtonsEnabled(false);
-            setTimeout(() => { openWindow(); }, 1000);
+            setTimeout(() => { openWindow(); }, 800);
         }
 
         function openWindow() {
@@ -467,7 +466,9 @@
 
         function handleTimeOut() {
             if (!combatActive) return;
-            selection.element = "Ninguno"; selection.action = "Nada"; selection.risk = "Equilibrada";
+            selection.element = "Ninguno"; 
+            selection.action = "Nada"; 
+            selection.risk = "Equilibrada";
             evaluateTactics();
         }
 
@@ -482,10 +483,12 @@
             let penalizacionClima = false;
 
             if (elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(enemy.element)) {
-                tacticScore += 40; report += "<span style='color:#00ff00'>[+] Elemento letal.</span> ";
+                tacticScore += 40; report += "[+] Elemento letal. ";
             } else if (selection.element === enemy.element) {
-                tacticScore += 10; report += "<span style='color:#ffff00'>[-] Elemento neutral.</span> ";
-            } else { report += "<span style='color:#ff0000'>[x] Desventaja elemental.</span> "; }
+                tacticScore += 10; report += "[-] Elemento neutral. ";
+            } else { 
+                report += "[x] Desventaja elemental. "; 
+            }
 
             if (currentEntorno.nombre === "NIEBLA DENSA" && selection.action === "Fisico" && hero.energy < 50) penalizacionClima = true;
             if (currentEntorno.nombre === "TORMENTA MÁGICA" && selection.action === "Hechizo") tacticScore += 20;
@@ -504,17 +507,18 @@
             else if (selection.action === "Drenaje" && enemy.mana > 60 && !penalizacionClima) { optimalAction = true; actionReason = "Robo de maná exitoso."; }
             else if (selection.action === "Contra" && enemy.energy > 70 && hero.hp > 40) { optimalAction = true; actionReason = "Contraataque certero."; }
             
-            if (penalizacionClima) report += `<br><span style='color:#ff0000'>[x] El Clima arruinó tu jugada.</span>`;
-            else if (optimalAction) { tacticScore += 60; report += `<br><span style='color:#00ff00'>[+] Acción ideal:</span> ${actionReason}`; }
-            else { tacticScore += 15; report += `<br><span style='color:#ffff00'>[-] Decisión mejorable.</span>`; }
+            if (penalizacionClima) report += "<br>[x] El Clima arruinó tu jugada.";
+            else if (optimalAction) { tacticScore += 60; report += `<br>[+] Acción ideal: ${actionReason}`; }
+            else { tacticScore += 15; report += "<br>[-] Decisión mejorable."; }
 
             let superaSituacion = false;
             if (selection.risk === "Temeraria") {
-                if (tacticScore >= 80) { superaSituacion = true; tacticScore *= 2; report += "<br>💥 <span style='color:#ff00ff'>RIESGO ÉPICO (x2 Pts)</span>"; }
+                if (tacticScore >= 80) { superaSituacion = true; tacticScore *= 2; report += "<br>💥 RIESGO ÉPICO (x2 Pts)"; }
                 else superaSituacion = false;
             } else if (selection.risk === "Conservadora") {
-                superaSituacion = true; tacticScore = Math.floor(tacticScore / 2);
-                report += "<br>🛡️ <span style='color:#00ffff'>Supervivencia asegurada.</span>";
+                superaSituacion = true; 
+                tacticScore = Math.floor(tacticScore / 2);
+                report += "<br>🛡️ Supervivencia asegurada.";
             } else {
                 if (tacticScore >= 60) superaSituacion = true;
             }
@@ -522,16 +526,25 @@
             document.getElementById("message").innerHTML = report;
 
             if (superaSituacion) {
-                triggerFlash('green'); roundsSurvived++; score += tacticScore * 10;
+                triggerFlash('green'); 
+                roundsSurvived++; 
+                score += tacticScore * 10;
                 let best = localStorage.getItem("mitos_best_score") || 0;
                 if (score > best) localStorage.setItem("mitos_best_score", score);
-                setTimeout(() => { document.getElementById("message").innerHTML = report + "<br><b>🏆 ¡ÉXITO! SIGUIENTE RONDA...</b>"; setTimeout(nextEncounter, 2500); }, 1500);
+                setTimeout(() => { 
+                    document.getElementById("message").innerHTML = report + "<br><b>🏆 ¡ÉXITO TÁCTICO! SIGUIENTE...</b>"; 
+                    setTimeout(nextEncounter, 2000); 
+                }, 1200);
             } else {
-                triggerFlash('red'); hero.hp = 0; updateUI();
+                triggerFlash('red'); 
+                hero.hp = 0; 
+                updateUI();
                 document.getElementById("monster-img").style.display = "none";
                 document.getElementById("monster-placeholder").style.display = "flex";
                 document.getElementById("monster-placeholder").innerText = "💀";
-                setTimeout(() => { document.getElementById("message").innerHTML = report + `<br><br><span style='color:#ff0000'>💀 FALLO TÁCTICO. Rondas: ${roundsSurvived}.</span><br>Recarga para reintentar.`; }, 1000);
+                setTimeout(() => { 
+                    document.getElementById("message").innerHTML = report + `<br><br>💀 FALLO TÁCTICO. Rondas: ${roundsSurvived}.<br>Recarga para reintentar.`; 
+                }, 1000);
             }
         }
 
