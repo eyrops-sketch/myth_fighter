@@ -488,7 +488,7 @@
 
         // ALGORITMO OPCIÓN A: Genera un valor aleatorio entre 1 y 9999 formateado a xxxx.jpg
                     function getRandomMultimediaImage() {
-            let totalAvailableImages = 6; // <--- Cambia este número cuando subas más
+            let totalAvailableImages = 10; // <--- Cambia este número cuando subas más
             let randomNum = Math.floor(Math.random() * totalAvailableImages) + 1;
             let formattedName = String(randomNum).padStart(4, '0') + ".jpg";
             return `multimedia/${formattedName}`; // <--- ¡AQUÍ ESTÁ LA RUTA RELATIVA CORRECTA!
