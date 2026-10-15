@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Definitivo</title>
+    <title>Mitos Tácticos 8-Bits - Edición Definitiva</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
-            background-color: #0c0c14;
+            background-color: #000008;
             color: #00ffff;
             font-family: 'Press Start 2P', monospace;
             text-align: center;
@@ -19,40 +19,41 @@
             box-sizing: border-box;
         }
         h1 {
-            font-size: 10px;
-            text-shadow: 2px 2px #ff00ff;
-            margin: 4px 0;
+            font-size: 13px;
+            text-shadow: 2px 2px #ff0077;
+            margin: 6px 0;
+            color: #ffff00;
         }
         #game-container {
             width: 100vw;
-            max-width: 520px;
+            max-width: 540px;
             margin: 0 auto;
-            border: 3px solid #00ffff;
-            background-color: #05050a;
+            border: 4px solid #00ffff;
+            background-color: #050515;
             padding: 8px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
             position: relative;
         }
         .flash-red {
-            background-color: #550000 !important;
+            background-color: #660000 !important;
             border-color: #ff0000 !important;
         }
         .flash-white {
             background-color: #ffffff !important;
         }
         .stats-panel {
-            font-size: 8px;
+            font-size: 9px;
             display: flex;
             justify-content: space-between;
-            border-bottom: 2px dashed #ff00ff;
-            padding-bottom: 5px;
+            border-bottom: 2px dashed #ff0077;
+            padding-bottom: 6px;
             color: #ffff00;
         }
-        /* Layout principal: Imagen a la izquierda, Estados a la derecha (como en la captura 2) */
+        /* Layout principal: Imagen a la izquierda, Estados a la derecha */
         .main-layout {
             display: flex;
             gap: 8px;
@@ -72,7 +73,7 @@
         #window-frame {
             width: 100%;
             aspect-ratio: 9/16;
-            border: 3px solid #ff00ff;
+            border: 3px solid #ff0077;
             background-color: #000;
             display: flex;
             align-items: center;
@@ -82,7 +83,7 @@
         }
         .boss-glow {
             border-color: #ffff00 !important;
-            box-shadow: inset 0 0 15px #ff0000;
+            box-shadow: inset 0 0 20px #ff0000;
         }
         #monster-img {
             width: 100%;
@@ -100,10 +101,10 @@
             background-color: #000;
         }
         .info-card {
-            background-color: #1a0033;
-            border: 2px solid #ff00ff;
-            font-size: 6.5px;
-            padding: 10px 4px;
+            background-color: #002244;
+            border: 2px solid #00ffff;
+            font-size: 7px;
+            padding: 8px 4px;
             text-align: center;
             color: #ffff00;
             flex: 1;
@@ -111,25 +112,43 @@
             align-items: center;
             justify-content: center;
         }
-        .hp-bar-container {
-            width: 100%;
-            background-color: #330033;
-            border: 2px solid #ff00ff;
-            height: 8px;
-            margin-top: 2px;
+        /* Contenedores de las 3 barras (HP, Maná, Fatiga) */
+        .bars-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            background: #001122;
+            border: 2px solid #00ffff;
+            padding: 4px;
         }
-        .hp-bar-fill {
-            background-color: #ff00ff;
-            height: 100%;
-            width: 100%;
-            transition: width 0.3s;
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 5px;
+            color: #fff;
         }
+        .bar-label {
+            width: 35px;
+            text-align: left;
+        }
+        .bar-outer {
+            flex: 1;
+            height: 7px;
+            background: #222;
+            border: 1px solid #fff;
+            position: relative;
+        }
+        .bar-inner-hp { background-color: #ff0000; height: 100%; width: 100%; transition: width 0.3s; }
+        .bar-inner-mana { background-color: #0088ff; height: 100%; width: 100%; transition: width 0.3s; }
+        .bar-inner-fatigue { background-color: #00cc44; height: 100%; width: 100%; transition: width 0.3s; }
+
         #timer-bar-container {
             width: 100%;
-            background-color: #003333;
+            background-color: #001122;
             border: 2px solid #00ffff;
-            height: 6px;
-            margin-bottom: 4px;
+            height: 7px;
+            margin: 2px 0;
         }
         #timer-bar-fill {
             background-color: #00ffff;
@@ -142,35 +161,34 @@
             text-align: left;
         }
         .selector-label {
-            font-size: 6px;
-            color: #ff00ff;
+            font-size: 7px;
+            color: #ff0077;
             margin-bottom: 3px;
             display: block;
         }
-        .row-grid-5 {
+        .row-grid-flexible {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 3px;
         }
-        /* Botones grandes y legibles, sin tonos morados oscuros */
         .tactical-btn {
-            background-color: #002244;
+            background-color: #003366;
             color: #00ffff;
             border: 2px solid #00ffff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 5.5px;
+            font-size: 6px;
             padding: 10px 2px;
             cursor: pointer;
             text-align: center;
         }
         .tactical-btn.selected {
             background-color: #00ffff;
-            color: #0c0c14;
+            color: #000008;
             border-color: #ffff00;
         }
         .tactical-btn:disabled {
             border-color: #444;
-            color: #444;
+            color: #555;
             cursor: not-allowed;
         }
         #action-execute-btn {
@@ -179,10 +197,11 @@
             color: #fff;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 7.5px;
-            padding: 11px;
+            font-size: 8.5px;
+            padding: 12px;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(255, 0, 119, 0.7);
+            box-shadow: 0 0 10px rgba(255, 0, 119, 0.8);
+            margin-top: 2px;
         }
         #action-execute-btn:hover:not(:disabled) {
             background-color: #ff3399;
@@ -194,20 +213,20 @@
             cursor: not-allowed;
         }
         #message {
-            font-size: 6.5px;
+            font-size: 7.5px;
             margin-top: 4px;
-            min-height: 26px;
+            min-height: 28px;
             line-height: 1.3;
             color: #ffff00;
-            background-color: #110022;
-            border: 1px solid #ff00ff;
+            background-color: #001122;
+            border: 2px solid #00ffff;
             padding: 6px;
         }
         #upgrade-screen {
             display: none;
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 10, 0.97);
+            background: rgba(0, 0, 12, 0.98);
             z-index: 10;
             flex-direction: column;
             align-items: center;
@@ -216,11 +235,11 @@
             box-sizing: border-box;
         }
         .upgrade-btn {
-            background-color: #003344;
+            background-color: #003366;
             color: #ffff00;
             border: 2px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 7.5px;
+            font-size: 8px;
             padding: 14px;
             margin: 8px;
             cursor: pointer;
@@ -235,16 +254,22 @@
     <div id="game-container">
         
         <div id="upgrade-screen">
-            <h2 style="font-size: 9px; color: #ffff00; margin-bottom: 14px;">🏆 ¡VICTORIA! ELIGE UNA MEJORA</h2>
-            <button class="upgrade-btn" onclick="applyUpgrade(1)">⭐ +20% Daño Crítico en D10</button>
+            <h2 style="font-size: 10px; color: #ffff00; margin-bottom: 14px;">🏆 ¡VICTORIA! ELIGE UNA MEJORA</h2>
+            <button class="upgrade-btn" onclick="applyUpgrade(1)">⭐ +20% Daño Crítico D10</button>
             <button class="upgrade-btn" onclick="applyUpgrade(2)">❤️ +30 HP Máximos</button>
-            <button class="upgrade-btn" onclick="applyUpgrade(3)">⏱️ +3s extra de Cronómetro</button>
+            <button class="upgrade-btn" onclick="applyUpgrade(3)">⏱️ +3s extra Cronómetro</button>
         </div>
 
         <div class="stats-panel">
             <span id="hero-lvl-txt">NVL: 1</span>
-            <span id="hero-hp">HP: 100</span>
             <span id="score-txt">PTS: 0</span>
+        </div>
+
+        <!-- 3 Barras del Héroe -->
+        <div class="bars-container">
+            <div class="bar-row"><span class="bar-label">HP:</span><div class="bar-outer"><div id="hero-hp-fill" class="bar-inner-hp"></div></div></div>
+            <div class="bar-row"><span class="bar-label">MAN:</span><div class="bar-outer"><div id="hero-mana-fill" class="bar-inner-mana"></div></div></div>
+            <div class="bar-row"><span class="bar-label">FAT:</span><div class="bar-outer"><div id="hero-fatigue-fill" class="bar-inner-fatigue" style="width: 0%;"></div></div></div>
         </div>
 
         <!-- Layout superior: Imagen a la izquierda, Estados a la derecha -->
@@ -263,17 +288,21 @@
             </div>
         </div>
 
-        <div class="hp-bar-container">
-            <div id="enemy-hp-fill" class="hp-bar-fill"></div>
+        <!-- 3 Barras del Objetivo / Enemigo -->
+        <div class="bars-container">
+            <div class="bar-row"><span class="bar-label">EN-HP:</span><div class="bar-outer"><div id="enemy-hp-fill" class="bar-inner-hp"></div></div></div>
+            <div class="bar-row"><span class="bar-label">EN-MAN:</span><div class="bar-outer"><div id="enemy-mana-fill" class="bar-inner-mana"></div></div></div>
+            <div class="bar-row"><span class="bar-label">EN-FAT:</span><div class="bar-outer"><div id="enemy-fatigue-fill" class="bar-inner-fatigue" style="width: 0%;"></div></div></div>
         </div>
+
         <div id="timer-bar-container">
             <div id="timer-bar-fill" class="timer-bar-fill"></div>
         </div>
 
         <!-- Fila 1: Elementos -->
         <div class="selector-row">
-            <span class="selector-label">1. ELEMENTO:</span>
-            <div class="row-grid-5">
+            <span class="selector-label">1. ELEMENTO TÁCTICO:</span>
+            <div class="row-grid-flexible" style="grid-template-columns: repeat(5, 1fr);">
                 <button class="tactical-btn" onclick="selectOpt('element', 'Fuego', this)">FUEGO</button>
                 <button class="tactical-btn" onclick="selectOpt('element', 'Hielo', this)">HIELO</button>
                 <button class="tactical-btn" onclick="selectOpt('element', 'Tierra', this)">TIERRA</button>
@@ -282,29 +311,18 @@
             </div>
         </div>
 
-        <!-- Fila 2: Posturas -->
+        <!-- Fila 2 y 3 unificadas en un panel táctico compacto sin duplicidades -->
         <div class="selector-row">
-            <span class="selector-label">2. POSTURA:</span>
-            <div class="row-grid-5">
-                <button class="tactical-btn" onclick="selectOpt('stance', 'Ataque', this)">ATAQUE</button>
-                <button class="tactical-btn" onclick="selectOpt('stance', 'Defensa', this)">DEFENSA</button>
-                <button class="tactical-btn" onclick="selectOpt('stance', 'Contra', this)">CONTRA</button>
-                <button class="tactical-btn" onclick="selectOpt('stance', 'Esquiva', this)">ESQUIVA</button>
-                <button class="tactical-btn" onclick="selectOpt('stance', 'Carga', this)">CARGA</button>
-            </div>
-        </div>
-
-        <!-- Fila 3: Enfoques / Recursos -->
-        <div class="selector-row">
-            <span class="selector-label">3. ENFOQUE / RECURSO:</span>
-            <div class="row-grid-5">
-                <button class="tactical-btn" onclick="selectOpt('focus', 'Físico', this)">FÍSICO</button>
-                <button class="tactical-btn" onclick="selectOpt('focus', 'Mágico', this)">MÁGICO</button>
-                <button class="tactical-btn" onclick="selectOpt('focus', 'Arma', this)">ARMA</button>
-                <button class="tactical-btn" onclick="selectOpt('focus', 'Armadura', this)">ARMADURA</button>
-                <button class="tactical-btn" onclick="selectOpt('focus', 'Hechizo', this)">HECHIZO</button>
-                <button class="tactical-btn" style="grid-column: span 2.5;" onclick="selectOpt('focus', 'Poción', this)">POCIÓN</button>
-                <button class="tactical-btn" style="grid-column: span 2.5;" onclick="selectOpt('focus', 'Talismán', this)">TALISMÁN</button>
+            <span class="selector-label">2. ACCIÓN Y RECURSO UNIFICADOS:</span>
+            <div class="row-grid-flexible" style="grid-template-columns: repeat(4, 1fr);">
+                <button class="tactical-btn" onclick="selectOpt('action', 'Ataque Físico', this)">ATQ FÍSICO</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Hechizo Mágico', this)">HECHIZO</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Arma Pesada', this)">ARMA</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Defensa Total', this)">DEFENSA</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Esquiva Rápida', this)">ESQUIVA</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Contraataque', this)">CONTRA</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Usar Poción', this)">POCIÓN</button>
+                <button class="tactical-btn" onclick="selectOpt('action', 'Usar Talismán', this)">TALISMÁN</button>
             </div>
         </div>
 
@@ -316,15 +334,7 @@
         let TURN_TIME_LIMIT = 12; 
         const DICE_MAX_SIDES = 10;      
 
-        const ROW_WEIGHTS = {
-            row1_element: 40,
-            row2_stance:  30,
-            row3_focus:   30
-        };
-
         const elements = ["Fuego", "Hielo", "Tierra", "Rayos", "Veneno"];
-        const focusList = ["Físico", "Mágico", "Arma", "Armadura", "Hechizo", "Poción", "Talismán"];
-
         const elementalWinsAgainst = {
             "Fuego": ["Hielo", "Veneno"],
             "Hielo": ["Tierra", "Rayos"],
@@ -336,12 +346,16 @@
         let heroLevel = 1;
         let heroMaxHp = 100;
         let heroHp = 100;
+        let heroMaxMana = 100;
+        let heroMana = 100;
+        let heroFatigue = 0; // 0 a 100
+
         let score = 0;
         let currentEnemy = null;
         let combatActive = false;
         let extraCritBonus = 0; 
 
-        let selection = { element: null, stance: null, focus: null };
+        let selection = { element: null, action: null };
         let timeLeft = TURN_TIME_LIMIT;
         let timerInterval = null;
 
@@ -364,6 +378,9 @@
             heroLevel = 1;
             heroMaxHp = 100;
             heroHp = 100;
+            heroMaxMana = 100;
+            heroMana = 100;
+            heroFatigue = 0;
             score = 0;
             extraCritBonus = 0;
             updateUI();
@@ -372,8 +389,11 @@
 
         function updateUI() {
             document.getElementById("hero-lvl-txt").innerText = `NVL: ${heroLevel}`;
-            document.getElementById("hero-hp").innerText = `HP: ${heroHp}`;
             document.getElementById("score-txt").innerText = `PTS: ${score}`;
+            
+            document.getElementById("hero-hp-fill").style.width = Math.max(0, (heroHp / heroMaxHp) * 100) + "%";
+            document.getElementById("hero-mana-fill").style.width = Math.max(0, (heroMana / heroMaxMana) * 100) + "%";
+            document.getElementById("hero-fatigue-fill").style.width = Math.min(100, heroFatigue) + "%";
         }
 
         function nextEncounter() {
@@ -388,8 +408,9 @@
             document.getElementById("info-dado").innerText = "DADO: [ 🎲 ]";
 
             document.getElementById("message").innerText = "🚪 Buscando enemigo en la puerta...";
-            document.getElementById("enemy-hp-fill").style.width = "100%";
-            document.getElementById("timer-bar-fill").style.width = "100%";
+            document.getElementById("enemy-mana-fill").style.width = "100%";
+            document.getElementById("enemy-fatigue-fill").style.width = "0%";
+            
             resetSelections();
             setAllButtonsEnabled(false);
 
@@ -404,8 +425,6 @@
             let formattedName = String(randomId).padStart(4, '0') + ".jpg";
 
             let randomElem = elements[Math.floor(Math.random() * elements.length)];
-            let randomFocus = focusList[Math.floor(Math.random() * focusList.length)];
-            
             let isBoss = (heroLevel % 5 === 0);
             let targetLevel = isBoss ? heroLevel + 3 : Math.max(1, heroLevel + Math.floor(Math.random() * 7) - 3);
             let enemyHpBase = isBoss ? 150 + (targetLevel * 10) : 70 + (targetLevel * 5);
@@ -415,8 +434,10 @@
                 level: targetLevel,
                 hp: enemyHpBase,
                 maxHp: enemyHpBase,
+                mana: 100,
+                maxMana: 100,
+                fatigue: 0,
                 element: randomElem,
-                weakFocus: randomFocus,
                 isBoss: isBoss,
                 status: null,
                 statusTurns: 0
@@ -487,7 +508,7 @@
             for (let b of buttons) { b.classList.remove("selected"); }
             btnElement.classList.add("selected");
 
-            if (selection.element && selection.stance && selection.focus) {
+            if (selection.element && selection.action) {
                 document.getElementById("action-execute-btn").disabled = false;
             }
         }
@@ -513,8 +534,7 @@
         function handleTimeOut() {
             if (!combatActive) return;
             if (!selection.element) selection.element = "Fuego";
-            if (!selection.stance) selection.stance = "Defensa";
-            if (!selection.focus) selection.focus = "Físico";
+            if (!selection.action) selection.action = "Defensa Total";
 
             document.getElementById("message").innerText = "⏰ ¡Tiempo agotado! Turno automático.";
             setTimeout(() => { executeTurnWithDice(); }, 800);
@@ -527,40 +547,51 @@
             setAllButtonsEnabled(false);
 
             if (!selection.element) selection.element = "Fuego";
-            if (!selection.stance) selection.stance = "Defensa";
-            if (!selection.focus) selection.focus = "Físico";
+            if (!selection.action) selection.action = "Defensa Total";
 
             triggerFlash('white');
 
+            // 1. Gasto de Maná y Fatiga según la acción elegida
+            let manaCost = 0;
+            let fatigueGain = 12;
+
+            if (selection.action === "Hechizo Mágico") {
+                manaCost = 35;
+                fatigueGain = 20;
+            } else if (selection.action === "Arma Pesada" || selection.action === "Carga") {
+                fatigueGain = 25;
+            } else if (selection.action === "Usar Poción") {
+                heroHp = Math.min(heroMaxHp, heroHp + 40);
+                heroMana = Math.min(heroMaxMana, heroMana + 20);
+                fatigueGain = -15; // Las pociones reducen fatiga
+            } else if (selection.action === "Usar Talismán") {
+                extraCritBonus += 0.15;
+                manaCost = 20;
+            }
+
+            // Aplicar Maná del Héroe
+            if (heroMana >= manaCost) {
+                heroMana -= manaCost;
+            } else {
+                heroMana = 0;
+                fatigueGain += 30; // Castigo por falta de maná
+            }
+
+            // Aplicar Fatiga
+            heroFatigue = Math.max(0, heroFatigue + fatigueGain);
+            let heroFatiguePenalty = heroFatigue > 70 ? 0.5 : (heroFatigue > 40 ? 0.8 : 1.0);
+
+            // 2. Tirada de Dado D10
             let diceRoll = Math.floor(Math.random() * DICE_MAX_SIDES) + 1;
             let baseCoefficient = 1.0;
 
-            if (diceRoll === 1) {
-                baseCoefficient = 0.4;
-            } else if (diceRoll >= 2 && diceRoll <= 5) {
-                baseCoefficient = 1.0;
-            } else if (diceRoll >= 6 && diceRoll <= 8) {
-                baseCoefficient = 1.3 + extraCritBonus; 
-            } else {
-                baseCoefficient = 1.9 + extraCritBonus; 
-            }
+            if (diceRoll === 1) baseCoefficient = 0.4;
+            else if (diceRoll >= 2 && diceRoll <= 5) baseCoefficient = 1.0;
+            else if (diceRoll >= 6 && diceRoll <= 8) baseCoefficient = 1.3 + extraCritBonus;
+            else baseCoefficient = 1.9 + extraCritBonus;
 
             let levelDiff = heroLevel - currentEnemy.level;
-            let heroCoefficient = baseCoefficient;
-            let enemyCoefficient = 1.0;
-
-            if (levelDiff >= -2 && levelDiff <= 2) {
-                heroCoefficient = baseCoefficient;
-                enemyCoefficient = 1.0;
-            } else if (levelDiff <= -20) {
-                heroCoefficient = 0.2;
-                enemyCoefficient = 1.0;
-            } else if (levelDiff >= 20) {
-                heroCoefficient = baseCoefficient;
-                enemyCoefficient = 0.2;
-            } else {
-                heroCoefficient = Math.max(0.2, baseCoefficient + (levelDiff * 0.03));
-            }
+            let heroCoefficient = baseCoefficient * heroFatiguePenalty;
 
             document.getElementById("info-dado").innerText = `DADO: [ ${diceRoll}/${DICE_MAX_SIDES} ]`;
 
@@ -568,117 +599,73 @@
             let totalPower = 0;
             let report = `🎲 [Dado: ${diceRoll}] `;
 
-            let row1Val = 0;
+            // Efecto Elemental
             if (elementalWinsAgainst[selection.element].includes(currentEnemy.element)) {
-                row1Val = 1.0;
-                report += `¡Elemento efectivo! `;
-                if (selection.element === "Fuego") { currentEnemy.status = "QUEMADO"; currentEnemy.statusTurns = 2; }
-                else if (selection.element === "Hielo") { currentEnemy.status = "CONGELADO"; currentEnemy.statusTurns = 2; }
-                else if (selection.element === "Veneno") { currentEnemy.status = "ENVENENADO"; currentEnemy.statusTurns = 3; }
-                else if (selection.element === "Rayos") { currentEnemy.status = "PARALIZADO"; currentEnemy.statusTurns = 2; }
+                totalPower += baseDamagePool * 0.4;
+                report += `🔥 ¡Elemento fuerte! `;
             } else if (selection.element === currentEnemy.element) {
-                row1Val = 0.3;
-                report += `Choque elemental. `;
+                totalPower += baseDamagePool * 0.15;
+                report += `⚡ Choque elemental. `;
             } else {
-                row1Val = 0.05;
-                report += `Elemento débil. `;
-            }
-            totalPower += baseDamagePool * (ROW_WEIGHTS.row1_element / 100) * row1Val;
-
-            if (currentEnemy.status) {
-                document.getElementById("info-estado-alterado").innerText = `ESTADO: ${currentEnemy.status}`;
+                totalPower += baseDamagePool * 0.05;
+                report += `💧 Desventaja. `;
             }
 
-            if (currentEnemy.status === "QUEMADO" && currentEnemy.statusTurns > 0) {
-                currentEnemy.hp -= 10;
-                report += "🔥 Quemado (-10). ";
-                currentEnemy.statusTurns--;
-            } else if (currentEnemy.status === "ENVENENADO" && currentEnemy.statusTurns > 0) {
-                currentEnemy.hp -= 8;
-                report += "🧪 Envenenado (-8). ";
-                currentEnemy.statusTurns--;
-            }
-
-            let row2Val = (selection.stance === "Ataque") ? 1.0 : (selection.stance === "Carga" ? 1.3 : 0.6);
-            totalPower += baseDamagePool * (ROW_WEIGHTS.row2_stance / 100) * row2Val;
-
-            let row3Val = 0.5;
-            if (selection.focus === currentEnemy.weakFocus) {
-                row3Val = 1.2;
-                report += `¡Punto débil! `;
-            } else {
-                if (selection.focus === "Poción") {
-                    heroHp = Math.min(heroMaxHp, heroHp + 25);
-                    report += "🧪 ¡Poción (+25 HP)! ";
-                } else if (selection.focus === "Talismán") {
-                    heroCoefficient += 0.3;
-                    report += "✨ ¡Talismán (+Atq)! ";
-                }
-            }
-            totalPower += baseDamagePool * (ROW_WEIGHTS.row3_focus / 100) * row3Val;
+            // Efecto Acción Unificada
+            if (selection.action === "Ataque Físico") totalPower += baseDamagePool * 0.35;
+            else if (selection.action === "Hechizo Mágico") totalPower += heroMana > 0 ? baseDamagePool * 0.6 : baseDamagePool * 0.2;
+            else if (selection.action === "Arma Pesada") totalPower += baseDamagePool * 0.5;
 
             let finalDamageToEnemy = Math.floor(totalPower * heroCoefficient);
             currentEnemy.hp -= finalDamageToEnemy;
             updateEnemyHpBar();
 
-            report += `💥 Haces ${finalDamageDamageToEnemy = finalDamageToEnemy} DMG. `;
+            report += `💥 Haces ${finalDamageToEnemy} DMG. `;
 
-            // Comprobar si el enemigo ha muerto (VICTORIA DEL HÉROE)
+            // Comprobar Victoria
             if (currentEnemy.hp <= 0) {
                 score += currentEnemy.isBoss ? 1500 : 500;
                 heroLevel++;
+                heroMana = heroMaxMana; // Regenerar maná al subir
+                heroFatigue = Math.max(0, heroFatigue - 40); // Aliviar fatiga
                 updateUI();
                 playBeep(880, 'sine', 0.5); 
 
                 let bestScore = localStorage.getItem("mitos_best_score") || 0;
-                if (score > bestScore) {
-                    localStorage.setItem("mitos_best_score", score);
-                }
+                if (score > bestScore) localStorage.setItem("mitos_best_score", score);
 
-                document.getElementById("message").innerText = `🏆 ¡VICTORIA! Derrotaste al enemigo. Subes a Nivel ${heroLevel}.`;
+                document.getElementById("message").innerText = `🏆 ¡VICTORIA! Derrotaste al rival. Subes a Nivel ${heroLevel}.`;
                 document.getElementById("upgrade-screen").style.display = "flex";
                 return;
             }
 
-            let enemyDmg = Math.floor((Math.random() * 22) + 15) * enemyCoefficient;
-            if (currentEnemy.isBoss) enemyDmg *= 1.5; 
-            enemyDmg = Math.floor(enemyDmg);
+            // Turno del Enemigo influenciado por sus 3 barras (HP, Maná, Fatiga)
+            let enemyFatiguePenalty = currentEnemy.fatigue > 60 ? 0.6 : 1.0;
+            let enemyDmg = Math.floor((Math.random() * 20 + 12) * enemyFatiguePenalty);
+            if (currentEnemy.isBoss) enemyDmg *= 1.5;
 
-            if (currentEnemy.status === "CONGELADO") {
-                enemyDmg = Math.floor(enemyDmg / 2);
-                report += "❄️ Congelado. ";
-                currentEnemy.statusTurns--;
-                if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
-            } else if (currentEnemy.status === "PARALIZADO") {
-                if (Math.random() > 0.5) {
-                    enemyDmg = 0;
-                    report += "⚡ ¡Paralizado (Fallo enemigo)! ";
-                }
-                currentEnemy.statusTurns--;
-                if(currentEnemy.statusTurns <= 0) currentEnemy.status = null;
-            }
-            
-            if (selection.stance === "Defensa" || selection.focus === "Armadura") {
+            currentEnemy.fatigue = Math.min(100, currentEnemy.fatigue + 15);
+            if (currentEnemy.mana > 15) currentEnemy.mana -= 15;
+
+            // Modificadores defensivos del Héroe
+            if (selection.action === "Defensa Total") {
                 enemyDmg = Math.floor(enemyDmg / 3);
-                report += "🛡️ ¡Defensa! ";
-            } else if (selection.stance === "Esquiva" && Math.random() > 0.3) {
+                report += "🛡️ ¡Defensa activa! ";
+            } else if (selection.action === "Esquiva Rápida" && Math.random() > 0.3) {
                 enemyDmg = 0;
-                report += "💨 ¡Esquivado con éxito! ";
-            } else if (selection.stance === "Carga") {
-                enemyDmg += 12;
-                report += "⚠️ Carga arriesgada. ";
-            } else if (selection.stance === "Contra") {
+                report += "💨 ¡Esquivado por completo! ";
+            } else if (selection.action === "Contraataque") {
                 enemyDmg = Math.floor(enemyDmg / 2);
                 currentEnemy.hp -= 15;
-                report += "⚔️ ¡Contraataque (-15 al rival)! ";
+                report += "⚔️ ¡Contraataque (-15 HP al rival)! ";
             }
 
-            if (enemyDmg > 0) { triggerFlash('red'); }
+            if (enemyDmg > 0) triggerFlash('red');
 
             heroHp -= enemyDmg;
             updateUI();
 
-            // Comprobar si el héroe ha muerto (DERROTA)
+            // Comprobar Derrota
             if (heroHp <= 0) { 
                 gameOver(); 
                 return; 
@@ -690,14 +677,10 @@
 
         function applyUpgrade(choice) {
             playBeep(950, 'square', 0.2);
-            if (choice === 1) {
-                extraCritBonus += 0.2; 
-            } else if (choice === 2) {
-                heroMaxHp += 30;
-                heroHp = heroMaxHp; 
-            } else if (choice === 3) {
-                TURN_TIME_LIMIT += 3; 
-            }
+            if (choice === 1) extraCritBonus += 0.2;
+            else if (choice === 2) { heroMaxHp += 30; heroHp = heroMaxHp; }
+            else if (choice === 3) TURN_TIME_LIMIT += 3;
+
             document.getElementById("upgrade-screen").style.display = "none";
             updateUI();
             nextEncounter();
@@ -706,10 +689,12 @@
         function updateEnemyHpBar() {
             let percentage = (currentEnemy.hp / currentEnemy.maxHp) * 100;
             document.getElementById("enemy-hp-fill").style.width = Math.max(0, percentage) + "%";
+            document.getElementById("enemy-mana-fill").style.width = Math.max(0, (currentEnemy.mana / currentEnemy.maxMana) * 100) + "%";
+            document.getElementById("enemy-fatigue-fill").style.width = Math.min(100, currentEnemy.fatigue) + "%";
         }
 
         function resetSelections() {
-            selection = { element: null, stance: null, focus: null };
+            selection = { element: null, action: null };
             let allBtns = document.getElementsByClassName("tactical-btn");
             for (let b of allBtns) { b.classList.remove("selected"); }
             document.getElementById("action-execute-btn").disabled = true;
@@ -718,7 +703,7 @@
         function setAllButtonsEnabled(enabled) {
             let allBtns = document.getElementsByClassName("tactical-btn");
             for (let b of allBtns) { b.disabled = !enabled; }
-            if (!enabled) { document.getElementById("action-execute-btn").disabled = true; }
+            if (!enabled) document.getElementById("action-execute-btn").disabled = true;
         }
 
         function gameOver() {
