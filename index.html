@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mitos Tácticos 8-Bits - Simulador Táctico V2</title>
+    <title>Mitos Tácticos 8-Bits - Alta Legibilidad</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -12,30 +12,30 @@
             font-family: 'Press Start 2P', monospace;
             text-align: center;
             margin: 0;
-            padding: 2px;
+            padding: 4px;
             width: 100%;
             height: 100vh;
             overflow-x: hidden;
             box-sizing: border-box;
         }
         h1 {
-            font-size: 11px;
+            font-size: 13px;
             text-shadow: 2px 2px #ff00ff;
             margin: 4px 0;
             color: #ffff00;
         }
         #game-container {
             width: 100vw;
-            max-width: 540px;
+            max-width: 600px;
             margin: 0 auto;
             border: 4px solid #00ffff;
-            background-color: #0a0a0a;
-            padding: 6px;
+            background-color: #05050a;
+            padding: 8px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
             position: relative;
         }
         .flash-red { background-color: #ff0000 !important; }
@@ -43,40 +43,40 @@
         .flash-green { background-color: #00ff00 !important; }
         
         .stats-panel {
-            font-size: 8px;
+            font-size: 10px;
             display: flex;
             justify-content: space-between;
-            border-bottom: 2px dashed #ff00ff;
-            padding-bottom: 4px;
+            border-bottom: 3px dashed #ff00ff;
+            padding-bottom: 6px;
             color: #ffff00;
         }
         
         #entorno-banner {
             background-color: #110022;
-            border: 2px solid #ff00ff;
+            border: 3px solid #ff00ff;
             color: #ff00ff;
-            font-size: 7px;
-            padding: 6px;
-            animation: pulse 2s infinite;
+            font-size: 8px;
+            padding: 8px;
+            line-height: 1.4;
         }
-        @keyframes pulse { 0% { border-color: #ff00ff; } 50% { border-color: #00ffff; } 100% { border-color: #ff00ff; } }
 
+        /* Layout principal: Imagen a la izquierda, Rival a la derecha ocupando el espacio */
         .main-layout {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             align-items: stretch;
         }
         .left-image-side {
-            flex: 1.2;
+            flex: 1.1;
             display: flex;
             flex-direction: column;
         }
         .right-info-side {
-            flex: 1;
+            flex: 1.2;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            justify-content: center;
+            gap: 6px;
+            justify-content: space-between;
         }
         #window-frame {
             width: 100%;
@@ -108,33 +108,37 @@
         .bars-container {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
             background: #111;
-            border: 2px solid #00ffff;
-            padding: 4px;
+            border: 3px solid #00ffff;
+            padding: 8px;
+            height: 100%;
+            box-sizing: border-box;
+            justify-content: space-around;
         }
         .bar-title {
-            font-size: 6.5px;
+            font-size: 9px;
             color: #ff00ff;
             text-align: center;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         .bar-row {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 6px;
+            gap: 6px;
+            font-size: 8px;
             color: #fff;
         }
         .bar-label {
-            width: 30px;
+            width: 38px;
             text-align: left;
+            color: #ffff00;
         }
         .bar-outer {
             flex: 1;
-            height: 9px;
+            height: 14px;
             background: #222;
-            border: 1px solid #fff;
+            border: 2px solid #fff;
             position: relative;
         }
         .bar-inner-hp { background-color: #ff0000; height: 100%; width: 100%; transition: width 0.5s; }
@@ -143,9 +147,9 @@
 
         .info-card {
             background-color: #000;
-            border: 2px solid #ffff00;
-            font-size: 7px;
-            padding: 6px 2px;
+            border: 3px solid #ffff00;
+            font-size: 9px;
+            padding: 10px 4px;
             text-align: center;
             color: #00ffff;
         }
@@ -153,8 +157,8 @@
         #timer-bar-container {
             width: 100%;
             background-color: #111;
-            border: 2px solid #ff00ff;
-            height: 6px;
+            border: 3px solid #ff00ff;
+            height: 10px;
         }
         #timer-bar-fill {
             background-color: #00ffff;
@@ -164,26 +168,27 @@
         }
 
         .selector-row {
-            margin-bottom: 2px;
+            margin-bottom: 3px;
             text-align: left;
         }
         .selector-label {
-            font-size: 6px;
+            font-size: 8px;
             color: #ffff00;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             display: block;
         }
-        .row-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; }
-        .row-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
-        .row-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        .row-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+        .row-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+        .row-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 
+        /* Botones hiper-legibles y grandes */
         .tactical-btn {
-            background-color: #000;
+            background-color: #001122;
             color: #00ffff;
-            border: 2px solid #00ffff;
+            border: 3px solid #00ffff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 5px;
-            padding: 8px 1px;
+            font-size: 7px;
+            padding: 12px 2px;
             cursor: pointer;
             text-align: center;
             transition: all 0.1s;
@@ -191,7 +196,7 @@
         .tactical-btn.selected {
             background-color: #00ffff;
             color: #000;
-            border-color: #ff00ff;
+            border-color: #ffff00;
             transform: scale(1.05);
         }
         .tactical-btn:disabled {
@@ -203,25 +208,25 @@
             width: 100%;
             background-color: #ff00ff;
             color: #fff;
-            border: 3px solid #ffff00;
+            border: 4px solid #ffff00;
             font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            padding: 10px;
+            font-size: 10px;
+            padding: 14px;
             cursor: pointer;
-            margin-top: 2px;
+            margin-top: 4px;
         }
         #action-execute-btn:hover:not(:disabled) { background-color: #ff33ff; }
         #action-execute-btn:disabled { background-color: #222; border-color: #555; color: #666; cursor: not-allowed; }
         
         #message {
-            font-size: 5.5px;
-            margin-top: 2px;
-            min-height: 40px;
+            font-size: 8px;
+            margin-top: 4px;
+            min-height: 50px;
             line-height: 1.5;
             color: #ffff00;
             background-color: #111;
-            border: 2px solid #ff00ff;
-            padding: 6px;
+            border: 3px solid #ff00ff;
+            padding: 8px;
             text-align: left;
         }
     </style>
@@ -237,16 +242,19 @@
             <span id="score-txt">PTS: 0</span>
         </div>
 
-        <div id="entorno-banner">CLIMA: DESPEJADO (Sin efectos)</div>
+        <div id="entorno-banner">CLIMA: DESPEJADO</div>
 
+        <!-- Estado del jugador arriba -->
+        <div class="bars-container" style="border-color: #ff00ff;">
+            <div class="bar-title">TU ESTADO ACTUAL</div>
+            <div class="bar-row"><span class="bar-label">HP</span><div class="bar-outer"><div id="hero-hp-fill" class="bar-inner-hp"></div></div></div>
+            <div class="bar-row"><span class="bar-label">MAN</span><div class="bar-outer"><div id="hero-mana-fill" class="bar-inner-mana"></div></div></div>
+            <div class="bar-row"><span class="bar-label">ENE</span><div class="bar-outer"><div id="hero-energy-fill" class="bar-inner-energy"></div></div></div>
+        </div>
+
+        <!-- Imagen izquierda / Rival a la derecha rellenando el espacio -->
         <div class="main-layout">
             <div class="left-image-side">
-                <div class="bars-container" style="margin-bottom: 4px;">
-                    <div class="bar-title">TU ESTADO</div>
-                    <div class="bar-row"><span class="bar-label">HP</span><div class="bar-outer"><div id="hero-hp-fill" class="bar-inner-hp"></div></div></div>
-                    <div class="bar-row"><span class="bar-label">MAN</span><div class="bar-outer"><div id="hero-mana-fill" class="bar-inner-mana"></div></div></div>
-                    <div class="bar-row"><span class="bar-label">ENE</span><div class="bar-outer"><div id="hero-energy-fill" class="bar-inner-energy"></div></div></div>
-                </div>
                 <div id="window-frame">
                     <img id="monster-img" src="" alt="Criatura" style="display: none;">
                     <div id="monster-placeholder">🚪</div>
@@ -254,13 +262,13 @@
             </div>
 
             <div class="right-info-side">
-                <div class="bars-container" style="border-color: #ff00ff; height: 100%; justify-content: center;">
-                    <div class="bar-title" style="color: #00ffff;">RIVAL</div>
+                <div class="bars-container">
+                    <div class="bar-title">ANÁLISIS RIVAL</div>
                     <div class="bar-row"><span class="bar-label">HP</span><div class="bar-outer"><div id="enemy-hp-fill" class="bar-inner-hp"></div></div></div>
                     <div class="bar-row"><span class="bar-label">MAN</span><div class="bar-outer"><div id="enemy-mana-fill" class="bar-inner-mana"></div></div></div>
                     <div class="bar-row"><span class="bar-label">ENE</span><div class="bar-outer"><div id="enemy-energy-fill" class="bar-inner-energy"></div></div></div>
-                    <div class="info-card" id="info-element">ELEM: ?</div>
                 </div>
+                <div class="info-card" id="info-element">ELEM: ?</div>
             </div>
         </div>
 
@@ -293,13 +301,13 @@
             </div>
         </div>
 
-        <!-- 3. Riesgo (NUEVO) -->
+        <!-- 3. Riesgo -->
         <div class="selector-row">
             <span class="selector-label">3. POSTURA DE RIESGO:</span>
             <div class="row-grid-3">
-                <button class="tactical-btn" style="color:#ff0000; border-color:#ff0000;" onclick="selectOpt('risk', 'Temeraria', this)">TEMERARIA<br>(x2 Pts / Muerte si fallas)</button>
-                <button class="tactical-btn" style="color:#ffff00; border-color:#ffff00;" onclick="selectOpt('risk', 'Equilibrada', this)">EQUILIBRADA<br>(Normal)</button>
-                <button class="tactical-btn" style="color:#00ff00; border-color:#00ff00;" onclick="selectOpt('risk', 'Conservadora', this)">CONSERVADORA<br>(Salva tu vida / Mitad Pts)</button>
+                <button class="tactical-btn" style="color:#ff0000; border-color:#ff0000; font-size:6px;" onclick="selectOpt('risk', 'Temeraria', this)">TEMERARIA<br>(x2 Pts)</button>
+                <button class="tactical-btn" style="color:#ffff00; border-color:#ffff00; font-size:6px;" onclick="selectOpt('risk', 'Equilibrada', this)">EQUILIBRADA<br>(Normal)</button>
+                <button class="tactical-btn" style="color:#00ff00; border-color:#00ff00; font-size:6px;" onclick="selectOpt('risk', 'Conservadora', this)">CONSERVADORA<br>(Salva vida)</button>
             </div>
         </div>
 
@@ -322,8 +330,8 @@
         const entornos = [
             { nombre: "DESPEJADO", desc: "Sin efectos adicionales." },
             { nombre: "NIEBLA DENSA", desc: "Ataques Físicos fallan si tu Energía es < 50%." },
-            { nombre: "TORMENTA MÁGICA", desc: "Hechizos siempre son efectivos, pero Drenaje te hace daño." },
-            { nombre: "CALOR EXTREMO", desc: "Defender o Concentrarte consume toda tu Energía." }
+            { nombre: "TORMENTA MÁGICA", desc: "Hechizos potentes, Drenaje penalizado." },
+            { nombre: "CALOR EXTREMO", desc: "Defender gasta toda tu Energía." }
         ];
 
         let roundsSurvived = 0;
@@ -352,7 +360,7 @@
 
         function startGame() {
             roundsSurvived = 0; score = 0;
-            document.getElementById("message").innerHTML = "¡Analiza las barras, el clima y elige tu nivel de riesgo!";
+            document.getElementById("messageinnerHTML = "¡Analiza las barras y el clima!";
             updateUI(); nextEncounter();
         }
 
@@ -406,7 +414,7 @@
             imgElement.style.display = "block";
             document.getElementById("info-element").innerText = `ELEM: ${enemy.element.toUpperCase()}`;
             
-            document.getElementById("message").innerHTML = "⚠️ ¡Elige Elemento, Táctica y Nivel de Riesgo antes de que acabe el tiempo!";
+            document.getElementById("message").innerHTML = "⚠️ ¡Elige Elemento, Táctica y Riesgo antes de que acabe el tiempo!";
             combatActive = true;
             setAllButtonsEnabled(true);
             startTimer();
@@ -473,55 +481,42 @@
             let tacticScore = 0; 
             let penalizacionClima = false;
 
-            // 1. EVALUAR ELEMENTO (40 pts)
             if (elementalWinsAgainst[selection.element] && elementalWinsAgainst[selection.element].includes(enemy.element)) {
                 tacticScore += 40; report += "<span style='color:#00ff00'>[+] Elemento letal.</span> ";
             } else if (selection.element === enemy.element) {
                 tacticScore += 10; report += "<span style='color:#ffff00'>[-] Elemento neutral.</span> ";
             } else { report += "<span style='color:#ff0000'>[x] Desventaja elemental.</span> "; }
 
-            // 2. MODIFICADORES DEL CLIMA
-            if (currentEntorno.nombre === "NIEBLA DENSA" && selection.action === "Fisico" && hero.energy < 50) { penalizacionClima = true; }
-            if (currentEntorno.nombre === "TORMENTA MÁGICA" && selection.action === "Hechizo") { tacticScore += 20; }
-            if (currentEntorno.nombre === "TORMENTA MÁGICA" && selection.action === "Drenaje") { penalizacionClima = true; }
-            if (currentEntorno.nombre === "CALOR EXTREMO" && (selection.action === "Defensa" || selection.action === "Concentracion")) { hero.energy = 0; }
+            if (currentEntorno.nombre === "NIEBLA DENSA" && selection.action === "Fisico" && hero.energy < 50) penalizacionClima = true;
+            if (currentEntorno.nombre === "TORMENTA MÁGICA" && selection.action === "Hechizo") tacticScore += 20;
+            if (currentEntorno.nombre === "TORMENTA MÁGICA" && selection.action === "Drenaje") penalizacionClima = true;
+            if (currentEntorno.nombre === "CALOR EXTREMO" && (selection.action === "Defensa" || selection.action === "Concentracion")) hero.energy = 0;
 
-            // 3. EVALUAR ACCIÓN (60 pts)
             let optimalAction = false;
             let actionReason = "";
 
             if (selection.action === "Defensa" && (hero.hp <= 35 || enemy.energy >= 70)) { optimalAction = true; actionReason = "Buena cobertura."; } 
-            else if (selection.action === "Pocion" && hero.hp <= 40) { optimalAction = true; actionReason = "Cura en momento justo."; }
+            else if (selection.action === "Pocion" && hero.hp <= 40) { optimalAction = true; actionReason = "Cura oportuna."; }
             else if (selection.action === "Concentracion" && hero.mana < 30 && hero.energy < 30) { optimalAction = true; actionReason = "Recarga táctica."; }
-            else if (selection.action === "Fisico" && hero.energy >= 40 && enemy.energy <= 40 && !penalizacionClima) { optimalAction = true; actionReason = "El enemigo estaba exhausto."; }
-            else if (selection.action === "Agil" && enemy.energy > 50 && hero.energy > 50) { optimalAction = true; actionReason = "Golpe rápido evadiendo peligro."; }
-            else if (selection.action === "Hechizo" && hero.mana >= 40 && enemy.mana <= 40) { optimalAction = true; actionReason = "Lanzaste magia sin oposición."; }
-            else if (selection.action === "Drenaje" && enemy.mana > 60 && !penalizacionClima) { optimalAction = true; actionReason = "Le robaste su gran reserva de magia."; }
-            else if (selection.action === "Contra" && enemy.energy > 70 && hero.hp > 40) { optimalAction = true; actionReason = "Aprovechaste su agresividad."; }
+            else if (selection.action === "Fisico" && hero.energy >= 40 && enemy.energy <= 40 && !penalizacionClima) { optimalAction = true; actionReason = "Rival exhausto."; }
+            else if (selection.action === "Agil" && enemy.energy > 50 && hero.energy > 50) { optimalAction = true; actionReason = "Golpe rápido."; }
+            else if (selection.action === "Hechizo" && hero.mana >= 40 && enemy.mana <= 40) { optimalAction = true; actionReason = "Magia limpia."; }
+            else if (selection.action === "Drenaje" && enemy.mana > 60 && !penalizacionClima) { optimalAction = true; actionReason = "Robo de maná exitoso."; }
+            else if (selection.action === "Contra" && enemy.energy > 70 && hero.hp > 40) { optimalAction = true; actionReason = "Contraataque certero."; }
             
-            if (penalizacionClima) {
-                report += `<br><span style='color:#ff0000'>[x] El Clima arruinó tu jugada.</span>`;
-            } else if (optimalAction) {
-                tacticScore += 60; report += `<br><span style='color:#00ff00'>[+] Acción brillante:</span> ${actionReason}`;
-            } else {
-                tacticScore += 15; report += `<br><span style='color:#ffff00'>[-] Decisión ineficiente.</span> Había mejores opciones.`;
-            }
+            if (penalizacionClima) report += `<br><span style='color:#ff0000'>[x] El Clima arruinó tu jugada.</span>`;
+            else if (optimalAction) { tacticScore += 60; report += `<br><span style='color:#00ff00'>[+] Acción ideal:</span> ${actionReason}`; }
+            else { tacticScore += 15; report += `<br><span style='color:#ffff00'>[-] Decisión mejorable.</span>`; }
 
-            // 4. APLICAR POSTURA DE RIESGO
             let superaSituacion = false;
-            
             if (selection.risk === "Temeraria") {
-                if (tacticScore >= 80) { superaSituacion = true; tacticScore *= 2; report += "<br>💥 <span style='color:#ff00ff'>RIESGO RECOMPENSADO (x2 Puntos)</span>"; }
-                else { superaSituacion = false; report += "<br>💀 <span style='color:#ff0000'>Riesgo fatal. Tu táctica no fue perfecta.</span>"; }
-            } 
-            else if (selection.risk === "Conservadora") {
-                superaSituacion = true; // Siempre sobrevives
-                tacticScore = Math.floor(tacticScore / 2);
-                report += "<br>🛡️ <span style='color:#00ffff'>Supervivencia asegurada (Puntos divididos).</span>";
-            } 
-            else { // Equilibrada
+                if (tacticScore >= 80) { superaSituacion = true; tacticScore *= 2; report += "<br>💥 <span style='color:#ff00ff'>RIESGO ÉPICO (x2 Pts)</span>"; }
+                else superaSituacion = false;
+            } else if (selection.risk === "Conservadora") {
+                superaSituacion = true; tacticScore = Math.floor(tacticScore / 2);
+                report += "<br>🛡️ <span style='color:#00ffff'>Supervivencia asegurada.</span>";
+            } else {
                 if (tacticScore >= 60) superaSituacion = true;
-                else report += "<br>⚠️ <span style='color:#ff0000'>Táctica insuficiente para sobrevivir.</span>";
             }
 
             document.getElementById("message").innerHTML = report;
@@ -530,13 +525,13 @@
                 triggerFlash('green'); roundsSurvived++; score += tacticScore * 10;
                 let best = localStorage.getItem("mitos_best_score") || 0;
                 if (score > best) localStorage.setItem("mitos_best_score", score);
-                setTimeout(() => { document.getElementById("message").innerHTML = report + "<br><b>🏆 ¡SOBREVIVES! SIGUIENTE RONDA...</b>"; setTimeout(nextEncounter, 2500); }, 1500);
+                setTimeout(() => { document.getElementById("message").innerHTML = report + "<br><b>🏆 ¡ÉXITO! SIGUIENTE RONDA...</b>"; setTimeout(nextEncounter, 2500); }, 1500);
             } else {
                 triggerFlash('red'); hero.hp = 0; updateUI();
                 document.getElementById("monster-img").style.display = "none";
                 document.getElementById("monster-placeholder").style.display = "flex";
                 document.getElementById("monster-placeholder").innerText = "💀";
-                setTimeout(() => { document.getElementById("message").innerHTML = report + `<br><br><span style='color:#ff0000'>💀 EL ENEMIGO TE ANIQUILA. Rondas: ${roundsSurvived}.</span><br>Recarga para intentarlo de nuevo.`; }, 1000);
+                setTimeout(() => { document.getElementById("message").innerHTML = report + `<br><br><span style='color:#ff0000'>💀 FALLO TÁCTICO. Rondas: ${roundsSurvived}.</span><br>Recarga para reintentar.`; }, 1000);
             }
         }
 
